@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:valid_user_attributes) {
+  let(:valid_user_attributes) {{
       username: "RspecUser",
       password: "password",
       email: "test@test.com"
-  }
+  }}
 
   it "creates a user when a user with valid attributes is saved" do
     valid_user = User.new(valid_user_attributes)
