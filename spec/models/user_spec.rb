@@ -19,4 +19,10 @@ RSpec.describe User, type: :model do
     invalid_user = User.create(invalid_user_attributes)
     expect(invalid_user).not_to be_valid
   end
+
+  it "doesn't create a user if their username is not unique" do
+    user1 = User.create(valid_user_attributes)
+    user2 = User.create(username: valid_user_attributes[:username], password: "test", email: "test2@test.com")
+    expect(user2).not_to be_valid
+  end
 end
