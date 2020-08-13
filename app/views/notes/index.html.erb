@@ -1,9 +1,21 @@
+
 <% if @notes.empty? %>
   <h1>Find Notes</h1>
 
-  <%= form_with url: "notes/search" do %>
-
+  <%= form_with url: "/notes", method: 'GET', local: true do %>
+    <%= text_field_tag 'terms[language]', "", placeholder: "language" %><br>
+    <%= text_field_tag 'terms[topic]', "", placeholder: "topic" %><br>
+    <%= text_field_tag 'terms[keyword]', "", placeholder: "keyword" %><br>
+    <%= submit_tag "Search", name: nil %>
   <% end %>
 <% else %>
-
+  <% @notes.each do |note| %>
+    <h3><%= note.title %>
+      <span style="font-size: .75rem; font-weight: normal;"><%= note.language.name%>, </span>
+      <% note.topics.each do |topic| %>
+        <span style="font-size: .75rem; font-weight: normal;"><%= topic.name%>, </span>
+      <% end %>
+    </h3>
+    <p><%= note.summary %></p>
+  <% end %>
 <% end %>

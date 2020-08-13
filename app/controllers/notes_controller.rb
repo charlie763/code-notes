@@ -9,7 +9,11 @@ class NotesController < ApplicationController
   end
 
   def index
-    @notes = Note.search(terms)
+    if terms = params[:terms]
+      @notes = Note.search(terms)
+    else 
+      @notes = []
+    end
   end
 
 end

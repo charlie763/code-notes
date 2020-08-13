@@ -8,9 +8,10 @@ class Note < ApplicationRecord
   validates :title, presence: true
 
   def self.search(terms)
-    results = results.where("title LIKE ?", "%#{terms[:keyword]}%").or(results.where("summary LIKE ?", "%#{terms[:keyword]}%")) if terms[:keyword]
-    results = results.joins(:language).where(languages: {name: terms[:language]}) if terms[:language]
-    results = results.joins(:topics).where('topics.name LIKE ?', "%#{terms[:topic]}%") if terms[:topic]
+    results = self
+    results = results.where("title LIKE ?", "%#{terms[:keyword]}%").or(results.where("summary LIKE ?", "%#{terms[:keyword]}%")) if terms[:keyword].present?
+    results = results.joins(:language).where(languages: {name: terms[:language]}) if terms[:language].present?
+    results = results.joins(:topics).where('topics.name LIKE ?', "%#{terms[:topic]}%") if terms[:topic].present?
     results
   end
 end
