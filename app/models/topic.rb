@@ -8,7 +8,7 @@ class Topic < ApplicationRecord
 
   private
   def not_a_language
-    language_names = Language.select(:name).map{|language| language.name.downcase}
+    language_names = Language.possible_names.map{|name| name.downcase}
     if name && language_names.include?(name.downcase)
       errors.add(:name, "name cannot be a programming language")
     end

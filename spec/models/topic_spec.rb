@@ -1,20 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe Topic, type: :model do
+  let(:user){User.create(
+    username: "RspecUser",
+    password: "password",
+    email: "test@test.com"
+  )}
+
+  let(:language){Language.create(name: "Ruby")}
+
   let(:note){Note.create(
     title: "Note1",
     summary: "Summary" + "lorem ipsum doler "*(rand(5..20)),
-    user_id: User.select(:id).map{|u| u.id}.sample,
-    language_id: Language.select(:id).map{|u| u.id}.sample
+    user: user,
+    language: language
   )}
-  
-  let(:topic1) {note.topics.create(
+
+  let(:topic1) {
+    note.topics.create(
     name: "Topic1", 
     topic_type: "general"
     )
   }
 
-  let(:languages) {Language.select(:name).map{|language| language.name}}
+  let(:languages) {Language.possible_names}
 
   it "saves if attributes are valid" do
     topic = note.topics.build(name: "Topic2", topic_type: "subtopic")
