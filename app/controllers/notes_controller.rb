@@ -1,5 +1,8 @@
 class NotesController < ApplicationController
   def new
+    @note = Note.new
+    @language = @note.build_language
+    2.times{@note.topics.build}
   end
 
   def show
@@ -14,6 +17,10 @@ class NotesController < ApplicationController
     else 
       @notes = []
     end
+  end
+
+  def create
+    raise params.inspect
   end
 
 end

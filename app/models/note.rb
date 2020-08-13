@@ -5,6 +5,9 @@ class Note < ApplicationRecord
   belongs_to :user
   belongs_to :language
 
+  accepts_nested_attributes_for :language, reject_if: :all_blank
+  accepts_nested_attributes_for :topics, reject_if: :all_blank
+
   validates :title, presence: true
 
   def self.search(terms)

@@ -1,2 +1,16 @@
 <h1>Notes#new</h1>
-<p>Find me in app/views/notes/new.html.erb</p>
+<%= form_with url: user_notes_path, model: @note, local: true do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br>
+  <%= f.fields_for :language do |l| %>
+    <%= l.label :name, "Language: " %>
+    <%= l.text_field :name, list: "language_list"  %><br>
+    <datalist id ="language_list">
+      <% Language.possible_names.each do |lang_name| %>
+        <option value="<%= lang_name %>">
+      <% end %>
+    </datalist>
+  <% end %>
+  <%= f.text_area :summary, placeholder: "summary" %><br>
+  <%= f.submit %>
+<% end %>
