@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe "Notes feature", type: :feature do
   context "search" do
     before(:each) do
-      visit '/notes/search'
+      visit '/notes'
     end
 
     it "allows user to search for notes by language filters notes accordingly" do
-      #fill_in(id/name, with: "Ruby")
-      click_button("Search")
+      # fill_in('terms[language]', with: "Ruby")
+      # click_button("Search")
       #expect all notes on page to have the "Ruby" language tag
     end
 
