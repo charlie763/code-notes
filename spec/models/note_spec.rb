@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Note, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:ruby_notes){Note.joins(:language).where(languages: {name: "Ruby"})}
+
+  context "search method" do
+    it "returns correct search results when searching for notes by language" do
+      binding.pry
+    end
+  end
 end
