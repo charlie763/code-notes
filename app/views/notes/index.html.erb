@@ -9,11 +9,5 @@
   <%= submit_tag "Search", name: nil %>
 <% end %>
 
-<% @notes.each do |note| %>
-  <h3>
-    <%= link_to note.title, note_path(note)  %>
-    <%= render partial: "display_tags", locals: {note: note} %>
-  </h3>
-  <p><%= note.summary %></p>
-<% end %>
+<%= render partial: "list_notes", locals: {notes: @notes} %>
 
