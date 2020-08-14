@@ -1,21 +1,22 @@
 class NotesController < ApplicationController
   def new
     @note = Note.new
-    @note.build_language
-    @note.topics.build
-    @note.code_snippets.build
+    build_note_form
+  end
 
-    language_and_topic_names
+  def create
+    @note = Note.new(note_params)
+    @note.user = current_user
+    if @note.save
+      redirect_to note_path(@note.id)
+    else
+      build_note_form
+      render 'new'
+    end
   end
 
   def show
     @note = find_note_by_id
-  end
-
-  def edit
-    @note = find_note_by_id
-    language_and_topic_names
-    topic_and_code_stubs
   end
 
   def index
@@ -26,16 +27,23 @@ class NotesController < ApplicationController
     end
   end
 
-  def create
-    @note = Note.new(note_params)
-    @note.user = current_user
-    if @note.save
-      redirect_to note_path(@note.id)
+  def edit
+    @note = find_note_by_id
+    build_note_form
+  end
+
+  def update
+    @note = find_note_by_id
+    if @note.update(note_params)
+      redirect_to note_path(@note)
     else
-      topic_and_code_stubs
-      language_and_topic_names
-      render 'new'
+      build_note_form
+      render 'edit'
     end
+  end
+
+  def destroy
+
   end
 
   private
@@ -43,14 +51,12 @@ class NotesController < ApplicationController
     params.require(:note).permit(:title, :summary, language_attributes: [:name], topics_attributes: [:name], code_snippets_attributes: [:code, :annotation])
   end
 
-  def language_and_topic_names
-    @language_names = Language.possible_names
-    @topic_names = Topic.names
-  end
-
-  def topic_and_code_stubs
+  def build_note_form
+    @note.build_language unless @note.language
     @note.topics.build if @note.topics.empty?
     @note.code_snippets.build if @note.code_snippets.empty?
+    @language_names = Language.possible_names
+    @topic_names = Topic.names
   end
 
   def find_note_by_id
