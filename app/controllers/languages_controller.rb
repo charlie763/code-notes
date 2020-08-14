@@ -4,5 +4,7 @@ class LanguagesController < ApplicationController
   end
 
   def show
+    @language = Language.find_by(id: params[:id])
+    @topics = @language.topics.distinct
   end
 end

@@ -1,5 +1,5 @@
 <h1>Languages#index</h1>
 
-<%= @languages.each do |language| %>
+<% @languages.each do |language| %>
   <%= link_to language.name, language_path(language) %><br>
 <% end %>

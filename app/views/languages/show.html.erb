@@ -1,2 +1,6 @@
-<h1>Languages#show</h1>
-<p>Find me in app/views/languages/show.html.erb</p>
+<h1><%= @language.name %></h1>
+<ul>
+  <% @topics.each do |topic| %>
+    <li><%= link_to topic.name, "#{notes_path}?terms[language]=#{@language.name}&terms[topic]=#{topic.name}"  %></li>
+  <% end %>
+</ul>
