@@ -6,8 +6,17 @@
     <%= l.label :name, "Language: " %>
     <%= l.text_field :name, list: "language_list"  %><br>
     <datalist id ="language_list">
-      <% Language.possible_names.each do |lang_name| %>
+      <% @language_names.each do |lang_name| %>
         <option value="<%= lang_name %>">
+      <% end %>
+    </datalist>
+  <% end %>
+  <%= f.fields_for :topics do |t| %>
+    <%= t.label :name, "Topic: " %>
+    <%= t.text_field :name, list: "topic_list"  %><br>
+    <datalist id ="topic_list">
+      <% @topic_names.each do |topic_name| %>
+        <option value="<%= topic_name %>">
       <% end %>
     </datalist>
   <% end %>

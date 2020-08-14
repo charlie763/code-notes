@@ -6,6 +6,8 @@ class Topic < ApplicationRecord
   validate :not_a_language
   validate :not_own_subtopic
 
+  scope :names, -> {all.pluck(:name)}
+
   private
   def not_a_language
     language_names = Language.possible_names.map{|name| name.downcase}

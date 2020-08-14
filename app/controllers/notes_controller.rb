@@ -2,7 +2,10 @@ class NotesController < ApplicationController
   def new
     @note = Note.new
     @language = @note.build_language
-    2.times{@note.topics.build}
+    @note.topics.build
+
+    @language_names = Language.possible_names
+    @topic_names = Topic.names
   end
 
   def show
