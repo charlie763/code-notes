@@ -5,14 +5,17 @@ class NotesController < ApplicationController
     @note.topics.build
     @note.code_snippets.build
 
-    add_language_and_topic_names
+    language_and_topic_names
   end
 
   def show
-    @note = Note.find_by(id: params[:id])
+    @note = find_note_by_id
   end
 
   def edit
+    @note = find_note_by_id
+    language_and_topic_names
+    topic_and_code_stubs
   end
 
   def index
@@ -29,9 +32,8 @@ class NotesController < ApplicationController
     if @note.save
       redirect_to note_path(@note.id)
     else
-      @note.topics.build if @note.topics.empty?
-      @note.code_snippets.build if @note.code_snippets.empty?
-      add_language_and_topic_names
+      topic_and_code_stubs
+      language_and_topic_names
       render 'new'
     end
   end
@@ -41,8 +43,17 @@ class NotesController < ApplicationController
     params.require(:note).permit(:title, :summary, language_attributes: [:name], topics_attributes: [:name], code_snippets_attributes: [:code, :annotation])
   end
 
-  def add_language_and_topic_names
+  def language_and_topic_names
     @language_names = Language.possible_names
     @topic_names = Topic.names
+  end
+
+  def topic_and_code_stubs
+    @note.topics.build if @note.topics.empty?
+    @note.code_snippets.build if @note.code_snippets.empty?
+  end
+
+  def find_note_by_id
+    Note.find_by(id: params[:id])
   end
 end

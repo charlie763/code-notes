@@ -46,6 +46,14 @@ notes_attributes = (1..50).each do |num|
     language_id: Language.select(:id).map{|u| u.id}.sample
   )
   note.topics << Topic.all.sample
+  note.code_snippets.create(
+    code: "<p>P TAG</p>",
+    annotation: "what a great P tag"
+  )
+  note.code_snippets.create(
+    code: "def method \n\nend",
+    annotation: "this is the syntax for defining a method in Ruby"
+  )
 end
 
 #external resources
