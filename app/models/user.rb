@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :notes
+  has_many :external_resources
   has_many :topics, through: :notes
   has_many :languages, through: :notes
 

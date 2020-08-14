@@ -4,6 +4,7 @@ class Language < ApplicationRecord
   has_many :notes
   has_many :external_resources
   has_many :topics, through: :notes
+  accepts_nested_attributes_for :external_resources
 
   validates :name, inclusion: {in: POSSIBLE_NAMES}, uniqueness: true
 
