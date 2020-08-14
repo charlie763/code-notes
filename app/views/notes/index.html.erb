@@ -1,6 +1,6 @@
 
 <h1>Find Notes</h1>
-<%= link_to "New Note", new_user_note_path(current_user) %>
+<%= link_to "New Note", new_note_path %>
 
 <%= form_with url: "/notes", method: 'GET', local: true do %>
   <%= text_field_tag 'terms[language]', "", placeholder: "language" %><br>
