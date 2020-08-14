@@ -9,14 +9,11 @@
   <%= submit_tag "Search", name: nil %>
 <% end %>
 
-<% unless @notes.empty? %>
-  <% @notes.each do |note| %>
-    <h3><%= note.title %>
-      <span style="font-size: .75rem; font-weight: normal;"><%= note.language.name%>, </span>
-      <% note.topics.each do |topic| %>
-        <span style="font-size: .75rem; font-weight: normal;"><%= topic.name%>, </span>
-      <% end %>
-    </h3>
-    <p><%= note.summary %></p>
-  <% end %>
+<% @notes.each do |note| %>
+  <h3>
+    <%= note.title %>
+    <%= render partial: "display_tags", locals: {note: note} %>
+  </h3>
+  <p><%= note.summary %></p>
 <% end %>
+

@@ -1,2 +1,5 @@
-<h1>Notes#show</h1>
-<p>Find me in app/views/notes/show.html.erb</p>
+<h1>
+  <%= @note.title %>
+  <%= render partial: "display_tags", locals: {note: @note} %>
+</h1>
+

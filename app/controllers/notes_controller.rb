@@ -5,10 +5,11 @@ class NotesController < ApplicationController
     @note.topics.build
     @note.code_snippets.build
 
-    new_note_template
+    add_language_and_topic_names
   end
 
   def show
+    @note = Note.find_by(id: params[:id])
   end
 
   def edit
@@ -26,11 +27,11 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
     @note.user = current_user
     if @note.save
-      redirect_to user_note_path(current_user, @note.id)
+      redirect_to note_path(@note.id)
     else
       @note.topics.build if @note.topics.empty?
       @note.code_snippets.build if @note.code_snippets.empty?
-      new_note_template
+      add_language_and_topic_names
       render 'new'
     end
   end
@@ -40,7 +41,7 @@ class NotesController < ApplicationController
     params.require(:note).permit(:title, :summary, language_attributes: [:name], topics_attributes: [:name], code_snippets_attributes: [:code, :annotation])
   end
 
-  def new_note_template
+  def add_language_and_topic_names
     @language_names = Language.possible_names
     @topic_names = Topic.names
   end
