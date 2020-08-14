@@ -10,9 +10,13 @@
   </head>
 
   <body>
-    <%= form_with url: "/login", method: "delete" do %>
-      <%= submit_tag "Log Out" %>
-    <% end %>
+    <div class="navbar">
+      <%= form_with url: "/login", method: "delete" do %>
+        <%= submit_tag "Log Out" %>
+      <% end %>
+      <%= link_to "Search", notes_path %>
+      <%= link_to "Languages", languages_path %>
+    </div>
     <%= yield %>
   </body>
 </html>
