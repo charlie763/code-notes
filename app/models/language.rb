@@ -4,12 +4,20 @@ class Language < ApplicationRecord
   has_many :notes
   has_many :external_resources
   has_many :topics, through: :notes
-  accepts_nested_attributes_for :external_resources
 
   validates :name, inclusion: {in: POSSIBLE_NAMES}, uniqueness: true
 
   def self.possible_names
     POSSIBLE_NAMES
   end
- 
+  
+  def external_resources
+    note_resources = ExternalResource.find_by_sql("SELECT external_resources.* FROM external_resources INNER JOIN external_resources_notes ON external_resources_notes.external_resource_id = external_resources.id INNER JOIN (SELECT notes.* FROM notes WHERE notes.language_id = 4) AS n ON external_resources_notes.note_id = n.id")
+    language_resources = self.external_resources
+    note_resources + language_resources
+  end
+
+  # def self.external_resources<<(external_resource)
+
+  # end
 end

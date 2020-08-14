@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_14_221624) do
+ActiveRecord::Schema.define(version: 2020_08_14_223224) do
 
   create_table "code_snippets", force: :cascade do |t|
     t.text "code"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2020_08_14_221624) do
     t.string "description"
     t.integer "external_resource_id"
     t.integer "user_id"
+    t.integer "language_id"
   end
 
   create_table "external_resources_notes", id: false, force: :cascade do |t|
