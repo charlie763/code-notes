@@ -1,8 +1,9 @@
 class NotesController < ApplicationController
   def new
     @note = Note.new
-    @language = @note.build_language
+    @note.build_language
     @note.topics.build
+    @note.code_snippets.build
 
     @language_names = Language.possible_names
     @topic_names = Topic.names
