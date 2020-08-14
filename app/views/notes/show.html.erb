@@ -2,4 +2,9 @@
   <%= @note.title %>
   <%= render partial: "display_tags", locals: {note: @note} %>
 </h1>
+<p><%= @note.summary %></p>
+<% @note.code_snippets.each do |snippet| %>
+  <p><%= snippet.code %></p>
+  <p><%= snippet.annotation %></p>
+<% end %>
 
