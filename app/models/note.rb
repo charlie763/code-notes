@@ -6,7 +6,7 @@ class Note < ApplicationRecord
   belongs_to :language
 
   accepts_nested_attributes_for :language, reject_if: :all_blank
-  accepts_nested_attributes_for :topics, reject_if: :all_blank
+  accepts_nested_attributes_for :topics
   accepts_nested_attributes_for :code_snippets, reject_if: :all_blank
 
   validates :title, presence: true
@@ -17,5 +17,16 @@ class Note < ApplicationRecord
     results = results.joins(:language).where(languages: {name: terms[:language]}) if terms[:language].present?
     results = results.joins(:topics).where('topics.name LIKE ?', "%#{terms[:topic]}%") if terms[:topic].present?
     results
+  end
+
+  def add_language(language_params)
+    self.language = Language.find_by(language_params)
+  end
+
+  def add_topics(topics_params)
+    new_topics = topics_params.values.map do |attr_hash| 
+      Topic.find_or_create_by(attr_hash) unless attr_hash[:name].empty?
+    end.compact
+    new_topics.each{|topic| self.topics << topic unless self.topics.include?(topic)} 
   end
 end
