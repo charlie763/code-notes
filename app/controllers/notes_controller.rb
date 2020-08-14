@@ -6,6 +6,7 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
+    binding.pry
     @note.user = current_user
     if @note.save
       redirect_to note_path(@note.id)
