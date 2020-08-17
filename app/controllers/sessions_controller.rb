@@ -20,13 +20,11 @@ class SessionsController < ApplicationController
             )
           end
       end
-      login_user(@user.id)
-      redirect_to root_path
+      login_and_redirect(@user)
     else
       @user = User.find_by(username: params[:username])
       if @user && @user.authenticate(params[:password])
-        login_user(@user.id)
-        redirect_to root_path
+        login_and_redirect(@user)
       else
         flash[:alert] = "Password and/or username are incorrect."
         render 'new'
@@ -42,5 +40,10 @@ class SessionsController < ApplicationController
   private
   def auth_hash
     request.env['omniauth.auth']
+  end
+
+  def login_and_redirect(user)
+    login_user(user.id)
+    redirect_to root_path
   end
 end
