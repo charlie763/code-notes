@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
     User.find_by(id: session[:user_id])
   end
 
+  def logged_in?
+    !!session[:user_id]
+  end
+
   def display_error(resource, attribute, optional_name=nil)
     subject = (optional_name || attribute).to_s.capitalize
     if resource.errors.messages[attribute].present?
@@ -13,5 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user
+  helper_method :logged_in?
   helper_method :display_error
 end
