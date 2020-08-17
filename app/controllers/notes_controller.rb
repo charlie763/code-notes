@@ -7,10 +7,11 @@ class NotesController < ApplicationController
   def create
     @note = Note.new(basic_note_params)
     @note.add_language(language_params)
-    @note.add_topics(topics_params)
+    new_topics = @note.add_topics(topics_params)
     @note.user = current_user
 
-    @note.language.save
+    validate_language
+    validate_topics(new_topics)
     if @note.save
       redirect_to note_path(@note.id)
     else
@@ -39,7 +40,10 @@ class NotesController < ApplicationController
   def update
     @note = find_note_by_id
     @note.add_language(language_params)
-    @note.add_topics(topics_params)
+    new_topics = @note.add_topics(topics_params)
+
+    validate_language
+    validate_topics(new_topics)
     if @note.update(basic_note_params)
       redirect_to note_path(@note)
     else
@@ -53,9 +57,6 @@ class NotesController < ApplicationController
   end
 
   private
-  def note_params
-    params.require(:note).permit(:title, :summary, code_snippets_attributes: [:code, :annotation], topics_attributes: [:name])
-  end
   def basic_note_params
     params.require(:note).permit(:title, :summary, code_snippets_attributes: [:code, :annotation])
   end
@@ -74,6 +75,16 @@ class NotesController < ApplicationController
     @note.code_snippets.build if @note.code_snippets.empty?
     @language_names = Language.possible_names
     @topic_names = Topic.names
+  end
+
+  def validate_language
+    @note.language.valid?
+  end
+  
+  def validate_topics(topics)
+    if @note.invalid? && @note.errors.details.length == 1 && @note.errors.details.keys.include?(:"topics.name")
+      @note.topics.delete(topics)
+    end
   end
 
   def find_note_by_id
