@@ -12,8 +12,9 @@ class SessionsController < ApplicationController
       case auth_hash.provider
         when 'github'
           unless @user = User.find_by(github_email: auth_hash.info.email)
+            username = User.username_if_not_taken(auth_hash.info.nickname)
             @user = User.create(
-              username: auth_hash.info.nickname, 
+              username: username, 
               github_email: auth_hash.info.email,
               password: SecureRandom.hex 
             )
