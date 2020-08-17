@@ -5,7 +5,7 @@ class Note < ApplicationRecord
   belongs_to :user
   belongs_to :language
 
-  accepts_nested_attributes_for :language, reject_if: :all_blank
+  # accepts_nested_attributes_for :language, reject_if: :all_blank
   accepts_nested_attributes_for :topics
   accepts_nested_attributes_for :code_snippets, reject_if: :all_blank
 
@@ -20,13 +20,12 @@ class Note < ApplicationRecord
   end
 
   def add_language(language_params)
-    self.language = Language.find_by(language_params)
+    language = Language.find_by(language_params)
+    self.language = language || Language.new(language_params)
   end
 
   def add_topics(topics_params)
-    new_topics = topics_params.values.map do |attr_hash| 
-      Topic.find_or_create_by(attr_hash) unless attr_hash[:name].empty?
-    end.compact
+    new_topics = topics_params.values.map{|attr_hash| Topic.find_or_create_by(attr_hash)}
     new_topics.each{|topic| self.topics << topic unless self.topics.include?(topic)} 
   end
 end

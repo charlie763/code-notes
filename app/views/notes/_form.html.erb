@@ -11,7 +11,7 @@
     </datalist>
   <% end %>
   <%= f.fields_for :topics do |t_form| %>
-    <%= t_form.label :name, "Topic: " %>
+    <%= t_form.label :name, display_error(t_form.object, :name, optional_name="Topic") %>
     <%= t_form.text_field :name, list: "topic_list"  %><br>
     <datalist id ="topic_list">
       <% @topic_names.each do |topic_name| %>
