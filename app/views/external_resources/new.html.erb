@@ -1,5 +1,5 @@
 <h1>ExternalResources#new</h1>
-<%= form_with model: @external_resource, url: language_external_resources_path(@language) do |f| %>
+<%= form_with model: @external_resource, url: language_external_resources_path(@language), local: true do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %><br>
   <%= f.label :url %>
