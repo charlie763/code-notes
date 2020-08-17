@@ -17,11 +17,27 @@
  div.field_with_errors {
    display: inline;
  }
- 
+
  div.field_with_errors > input {
-   border: 2px inset red;
+   border: 2px inset #DC602E;
  }
 
  div.field_with_errors > label {
-  color: red;
+  color: #DC602E;
+}
+
+.primary-background {
+  background-color: #354F52!important;
+}
+
+.secondary-background {
+  background-color: #2F3E46!important;
+}
+
+.primary-text {
+  color: #CAD2C5!important;
+}
+
+.secondary-text {
+  color: #84A98C!important;
 }

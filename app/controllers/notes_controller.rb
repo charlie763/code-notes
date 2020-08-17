@@ -82,7 +82,8 @@ class NotesController < ApplicationController
   end
   
   def validate_topics(topics)
-    if @note.invalid? && @note.errors.details.length == 1 && @note.errors.details.keys.include?(:"topics.name")
+    #if @note.invalid? && @note.errors.details.length == 1 && @note.errors.details.keys.include?(:"topics.name")
+    if @note.invalid? && @note.errors.details.keys.all?(:"topics.name") 
       @note.topics.delete(topics)
     end
   end
