@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
 
   get '/login', to: 'sessions#new'
+  get 'auth/:provider/callback', to: 'sessions#create'
   post '/login', to: 'sessions#create'
   delete '/login', to: 'sessions#destroy'
  

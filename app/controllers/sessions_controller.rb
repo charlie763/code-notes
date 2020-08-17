@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
   end
 
   def create
+    raise params.inspect
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       login_user(@user.id)
@@ -21,5 +22,10 @@ class SessionsController < ApplicationController
   def destroy
     session.clear
     redirect_to login_path
+  end
+
+  private
+  def auth_hash
+    request.env['omniauth.auth']
   end
 end
