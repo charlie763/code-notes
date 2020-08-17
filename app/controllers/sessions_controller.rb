@@ -8,14 +8,28 @@ class SessionsController < ApplicationController
   end
 
   def create
-    raise params.inspect
-    @user = User.find_by(username: params[:username])
-    if @user && @user.authenticate(params[:password])
+    if auth_hash
+      case auth_hash.provider
+        when 'github'
+          unless @user = User.find_by(github_email: auth_hash.info.email)
+            @user = User.create(
+              username: auth_hash.info.nickname, 
+              github_email: auth_hash.info.email,
+              password: SecureRandom.hex 
+            )
+          end
+      end
       login_user(@user.id)
       redirect_to root_path
     else
-      flash[:alert] = "Password and/or username are incorrect."
-      render 'new'
+      @user = User.find_by(username: params[:username])
+      if @user && @user.authenticate(params[:password])
+        login_user(@user.id)
+        redirect_to root_path
+      else
+        flash[:alert] = "Password and/or username are incorrect."
+        render 'new'
+      end
     end
   end
 
