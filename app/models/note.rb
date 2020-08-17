@@ -1,11 +1,11 @@
 class Note < ApplicationRecord
-  has_and_belongs_to_many :topics
+  has_and_belongs_to_many :topics 
   has_and_belongs_to_many :external_resources
   has_many :code_snippets
   belongs_to :user
   belongs_to :language
 
-  # accepts_nested_attributes_for :language, reject_if: :all_blank
+  accepts_nested_attributes_for :language, reject_if: :all_blank
   accepts_nested_attributes_for :topics
   accepts_nested_attributes_for :code_snippets, reject_if: :all_blank
 

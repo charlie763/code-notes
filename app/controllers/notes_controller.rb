@@ -10,6 +10,7 @@ class NotesController < ApplicationController
     @note.add_topics(topics_params)
     @note.user = current_user
 
+    @note.language.save
     if @note.save
       redirect_to note_path(@note.id)
     else
@@ -60,7 +61,7 @@ class NotesController < ApplicationController
   end
 
   def language_params
-    params.require(:note).permit(language: [:name])[:language]
+    params.require(:note).permit(language_attributes: [:name])[:language_attributes]
   end
 
   def topics_params
@@ -69,7 +70,7 @@ class NotesController < ApplicationController
 
   def build_note_form
     @note.build_language unless @note.language
-    2.times{@note.topics.build} if @note.topics.empty?
+    @note.topics.build if @note.topics.empty?
     @note.code_snippets.build if @note.code_snippets.empty?
     @language_names = Language.possible_names
     @topic_names = Topic.names
