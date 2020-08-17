@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_14_223224) do
+ActiveRecord::Schema.define(version: 2020_08_17_175513) do
 
   create_table "code_snippets", force: :cascade do |t|
     t.text "code"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2020_08_14_223224) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "github_email"
   end
 
 end
