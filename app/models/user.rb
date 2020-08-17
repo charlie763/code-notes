@@ -16,6 +16,9 @@ class User < ApplicationRecord
 
   private
   def multiple_email_validation
-    errors.add(:email, "must have an email address") if !email && !github_email
+    if !github_email && !email.present?
+      errors.details[:email]=[{error: "can't be blank"}] 
+      errors.messages[:email]=["can't be blank"]
+    end
   end
 end
