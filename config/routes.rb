@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :notes
   resources :languages, only: [:index, :show] do
     resources :topics, only: [:index, :show]
+    resources :external_resources, only: [:new, :create]
   end
 
 
