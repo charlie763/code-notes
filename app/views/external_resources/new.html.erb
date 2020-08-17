@@ -1,2 +1,10 @@
 <h1>ExternalResources#new</h1>
-<p>Find me in app/views/external_resources/new.html.erb</p>
+<%= form_with model: @external_resource, url: language_external_resources_path(@language) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+  <%= f.label :url %>
+  <%= f.text_field :url %><br>
+  <%= f.label :description %>
+  <%= f.text_area :description %><br>
+  <%= f.submit %>
+<% end %>
