@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  get 'external_resources/new'
   root to: 'notes#index'
+  get '/login', to: 'sessions#new'
+  get 'auth/:provider/callback', to: 'sessions#create'
+  post '/login', to: 'sessions#create'
+  delete '/login', to: 'sessions#destroy'
+  resources :users, only: [:new, :create]
   
   resources :notes
   resources :languages, only: [:index, :show] do
@@ -9,9 +13,5 @@ Rails.application.routes.draw do
   end
 
 
-  get '/login', to: 'sessions#new'
-  get 'auth/:provider/callback', to: 'sessions#create'
-  post '/login', to: 'sessions#create'
-  delete '/login', to: 'sessions#destroy'
- 
+
 end
