@@ -30,7 +30,7 @@ class NotesController < ApplicationController
       @topic = display_search_placeholder(:topic)
       @keyword = display_search_placeholder(:keyword)
     end
-    
+
     if terms = params[:terms]
       @notes = Note.search(terms)
     else 
@@ -87,7 +87,7 @@ class NotesController < ApplicationController
     @note.language.valid?
   end
   
-  def validate_topics(topics)s
+  def validate_topics(topics)
     if @note.invalid? && @note.errors.details.keys.all?(:"topics.name") 
       @note.topics.delete(topics)
     end
