@@ -29,7 +29,7 @@
 }
 
 .primary-background {
-  background-color: #354F52!important;
+  background-color: #CAD2C5!important;
 }
 
 .secondary-background {
@@ -37,9 +37,16 @@
 }
 
 .primary-text {
-  color: #CAD2C5!important;
+  color: #354F52!important;
 }
 
 .secondary-text {
   color: #84A98C!important;
+}
+
+.link-button {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
 }
