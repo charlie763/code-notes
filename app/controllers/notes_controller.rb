@@ -25,9 +25,13 @@ class NotesController < ApplicationController
   end
 
   def index
+    @language = params[:terms][:language] || "language"
+    @topic = params[:terms][:topic]
+    @keyword = params[:terms][:keyword]
     if terms = params[:terms]
       @notes = Note.search(terms)
     else 
+      binding.pry
       @notes = []
     end
   end

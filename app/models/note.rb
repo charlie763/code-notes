@@ -14,7 +14,7 @@ class Note < ApplicationRecord
   def self.search(terms)
     results = self
     results = results.where("title LIKE ?", "%#{terms[:keyword]}%").or(results.where("summary LIKE ?", "%#{terms[:keyword]}%")) if terms[:keyword].present?
-    results = results.joins(:language).where(languages: {name: terms[:language]}) if terms[:language].present?
+    results = results.joins(:language).where('languages.name LIKE ?', "%#{terms[:language]}%") if terms[:language].present?
     results = results.joins(:topics).where('topics.name LIKE ?', "%#{terms[:topic]}%") if terms[:topic].present?
     results
   end
