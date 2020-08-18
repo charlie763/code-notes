@@ -1,5 +1,12 @@
-<h1>Languages#index</h1>
+<div class="row justify-content-center px-2">
+  <div class="col-md-12">
+    <h1 class="mt-4 mb-3">Languages</h1>
+    <ul>
+      <% @languages.each do |language| %>
+        <li><%= link_to language.name, language_path(language), class: "primary-text" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
-<% @languages.each do |language| %>
-  <%= link_to language.name, language_path(language) %><br>
-<% end %>
+

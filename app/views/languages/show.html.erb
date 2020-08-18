@@ -1,18 +1,32 @@
-<h1><%= @language.name %></h1>
-<%= link_to "Add Resource", new_language_external_resource_path(@language) %>
-<h3>Topics:</h3>
-<ul>
-  <% @topics.each do |topic| %>
-    <li><%= link_to topic.name, language_topic_path(@language, topic)  %></li>
-  <% end %>
-</ul>
+<div class="row justify-content-center px-2">
+  <div class="col-md-12">
+    <h1 class="mt-4 mb-3">
+      <%= @language.name %>
+      <a href="<%= new_language_external_resource_path(@language) %>" class="badge ml-3">
+        <%= image_tag "add-icon.png", class: "icon"%> 
+        <span class="primary-text embedded-icon-label">Add Resource</span>
+      </a>
+    </h1>
 
-<h3>Resources:</h3>
-<ul>
-  <% @external_resources.each do |external_resource| %>
-    <li>
-      <%= "#{external_resource.name}  - #{external_resource.display_description}" %><br>
-      <%= link_to "#{external_resource.url}", external_resource.url if external_resource.url %>
-    </li>
-  <% end %>
-</ul>
+    <h3>Topics:</h3>
+    <ul>
+      <% @topics.each do |topic| %>
+        <li><%= link_to topic.name, language_topic_path(@language, topic), class: "primary-text"  %></li>
+      <% end %>
+    </ul>
+
+    <h3>Resources:</h3>
+    <ul>
+      <% @external_resources.each do |external_resource| %>
+        <li>
+          <span><%= external_resource.name %></span>
+          <span class="font-italic"><%= "  - #{external_resource.display_description}" %></span><br>
+          <%= link_to "#{external_resource.url}", external_resource.url if external_resource.url %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+
+
