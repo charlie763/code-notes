@@ -1,12 +1,12 @@
 <%= form_with model: note, local: true do |f| %>
   <div class="form-group">
-    <%= f.label :title, display_error(note, :title), class: "primary-text" %>
-    <%= f.text_field :title, class: "primary-text form-control" %>
+    <%= f.label :title, display_error(note, :title) %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.fields_for :language do |l_form| %>
-      <%= l_form.label :name, display_error(note.language, :name, optional_name="Language"), class: "primary-text" %>
-      <%= l_form.text_field :name, list: "language_list", class: "primary-text form-control"  %>
+      <%= l_form.label :name, display_error(note.language, :name, optional_name="Language") %>
+      <%= l_form.text_field :name, list: "language_list", class: "form-control"  %>
       <datalist id ="language_list">
         <% @language_names.each do |lang_name| %>
           <option value="<%= lang_name %>">
@@ -16,8 +16,8 @@
   </div>
   <div class="form-group">
     <%= f.fields_for :topics do |t_form| %>
-      <%= t_form.label :name, display_error(t_form.object, :name, optional_name="Topic"), class: "primary-text" %>
-      <%= t_form.text_field :name, list: "topic_list", class: "primary-text form-control"  %>
+      <%= t_form.label :name, display_error(t_form.object, :name, optional_name="Topic") %>
+      <%= t_form.text_field :name, list: "topic_list", class: "form-control"  %>
       <datalist id ="topic_list">
         <% @topic_names.each do |topic_name| %>
           <option value="<%= topic_name %>">
@@ -26,17 +26,17 @@
     <% end %>
   </div>
   <div class="form-group">
-    <%= f.label :summary, "Summary: ", class: "primary-text" %><br>
-    <%= f.text_area :summary, placeholder: "summary", class: "primary-text form-control" %>
+    <%= f.label :summary, "Summary: " %><br>
+    <%= f.text_area :summary, placeholder: "summary", class: "form-control" %>
   </div>
   <br>
   <div class="form-group">
     <%= f.label :code_snippets, "Code: ", class: "font-weight-bold primary-text" %><br>
     <%= f.fields_for :code_snippets do |c_form| %>
       <label class="primary-text">Code Snippet: </label><br>
-      <%= c_form.text_area :code, placeholder: "write code here", class: "primary-text form-control" %><br>
+      <%= c_form.text_area :code, placeholder: "write code here", class: "form-control" %><br>
       <br>
-      <%= c_form.text_area :annotation, placeholder: "notes about the code", class: "primary-text form-control" %><br>    
+      <%= c_form.text_area :annotation, placeholder: "notes about the code", class: "form-control" %><br>    
     <% end %>
   </div>
   <%= f.submit "Save", class: "btn-secondary submit-button" %>
