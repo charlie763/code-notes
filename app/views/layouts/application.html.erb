@@ -10,28 +10,26 @@
   </head>
 
   <body class="primary-background">
-    <% if logged_in? %>
-      <nav id="navbar" class="navbar navbar-expand-lg navbar-light justify-content-between secondary-background">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-menu" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="nav-menu">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <%= link_to "Notes", notes_path, class: "nav-link secondary-text" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Languages", languages_path, class: "nav-link secondary-text" %>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <%= form_with url: "/login", method: "delete", class: "form-inline" do %>
-            <%= submit_tag "Log Out", class: "link-button secondary-text" %>
-          <% end %>
-        </div>
-      </nav>
-    <% end %>
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-light justify-content-between secondary-background">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-menu" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav-menu">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "Notes", notes_path, class: "nav-link secondary-text" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Languages", languages_path, class: "nav-link secondary-text" %>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <%= form_with url: "/login", method: "delete", class: "form-inline" do %>
+          <%= submit_tag "Log Out", class: "link-button secondary-text" %>
+        <% end %>
+      </div>
+    </nav>
 
     <div class="container">
       <%= yield %>

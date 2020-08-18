@@ -28,6 +28,10 @@
   color: #DC602E;
 }
 
+div.container {
+  color: #354F52!important;
+}
+
 .primary-background {
   background-color: #CAD2C5!important;
 }
@@ -59,16 +63,6 @@
   padding: 0!important;
   cursor: pointer;
 }
-
-.form-group > input {
-  width: 25%;
-}
-
-.form-group > textarea {
-  width: 75%;
-  height: 6rem;
-}
-
 
 .submit-button {
   border-radius: 2px;

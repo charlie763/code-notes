@@ -1,12 +1,30 @@
-<h1>Sign Up</h1>
-<%= form_for @user do |f| %>
-  <%= f.label :username, display_error(@user, :username) %>
-  <%= f.text_field :username %><br>
-  <%= f.label :email, display_error(@user, :email) %>
-  <%= f.text_field :email %><br>
-  <%= f.label :password, display_error(@user, :password)%>
-  <%= f.password_field :password %><br>
-  <%= f.submit "Sign Up" %>
-<% end %>
-<%= link_to "Github Signup", '../auth/github' %>
-<%= link_to "Log In", login_path %>
+<div class="row justify-content-center mt-5 mb-4">
+  <div class="col-auto">
+    <h1>Sign Up</h1>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-md-8 col-10">
+    <%= form_for @user do |f| %>
+      <div class="form-group">
+        <%= f.label :username, display_error(@user, :username) %>
+        <%= f.text_field :username, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email, display_error(@user, :email) %>
+        <%= f.text_field :email, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, display_error(@user, :password)%>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Sign Up", class: "btn-secondary submit-button" %>
+      </div>
+    <% end %>
+    <div class="row justify-content-center mt-5">
+      <%= link_to "Github Signup", '../auth/github', class: "text-primary mx-4" %>
+      <%= link_to "Log In", login_path, class: "text-primary mx-4" %>
+    </div>
+  </div>
+</div>
