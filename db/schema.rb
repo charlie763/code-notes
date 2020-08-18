@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_17_175513) do
+ActiveRecord::Schema.define(version: 2020_08_18_153353) do
 
   create_table "code_snippets", force: :cascade do |t|
     t.text "code"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_08_17_175513) do
 
   create_table "languages", force: :cascade do |t|
     t.string "name"
+    t.string "display_color"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_08_17_175513) do
     t.integer "topic_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "display_color"
   end
 
   create_table "users", force: :cascade do |t|
