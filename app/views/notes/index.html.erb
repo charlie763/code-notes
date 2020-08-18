@@ -7,16 +7,16 @@
   </div>
 </div>
 <div class="row justify-content-center">
-  <div class="col-md-8 col-12 pt-5">
+  <div class="col-md-8 col-12 pt-4">
     <div class="row justify-content-center">
-      <h1>Find Notes</h1>
+      <h1 class="primary-text">Find Notes</h1>
     </div>
-    <div class="row justify-content-center my-4">
+    <div class="row justify-content-center mt-4 mb-2">
       <%= form_with url: "/notes", method: 'GET', local: true do %>
         <div class="form-group-row">
-          <%= text_field_tag 'terms[language]', "", placeholder: @language, class: "mx-2" %>
-          <%= text_field_tag 'terms[topic]', "", placeholder: @topic, class: "mx-2" %>
-          <%= text_field_tag 'terms[keyword]', "", placeholder: @keyword, class: "mx-2" %>
+          <%= text_field_tag 'terms[language]', "", placeholder: "language#{@language}", class: "mx-2" %>
+          <%= text_field_tag 'terms[topic]', "", placeholder: "topic#{@topic}", class: "mx-2" %>
+          <%= text_field_tag 'terms[keyword]', "", placeholder: "keyword#{@keyword}", class: "mx-2" %>
         </div>
         <div class="row justify-content-center my-3">
           <%= submit_tag "Search", name: nil, class: "btn-secondary submit-button" %>

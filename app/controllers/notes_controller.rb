@@ -25,13 +25,15 @@ class NotesController < ApplicationController
   end
 
   def index
-    @language = params[:terms][:language] || "language"
-    @topic = params[:terms][:topic]
-    @keyword = params[:terms][:keyword]
+    if params[:terms]
+      @language = display_search_placeholder(:language)
+      @topic = display_search_placeholder(:topic)
+      @keyword = display_search_placeholder(:keyword)
+    end
+    
     if terms = params[:terms]
       @notes = Note.search(terms)
     else 
-      binding.pry
       @notes = []
     end
   end
@@ -93,5 +95,9 @@ class NotesController < ApplicationController
 
   def find_note_by_id
     Note.find_by(id: params[:id])
+  end
+
+  def display_search_placeholder(attribute)
+    ": #{params[:terms][attribute]}" if params[:terms][attribute].present? 
   end
 end

@@ -1,7 +1,7 @@
 <% notes.each do |note| %>
   <h3>
-    <%= link_to note.title, note_path(note)  %>
+    <%= link_to note.title, note_path(note), class: "primary-text" %>
     <%= render partial: "notes/display_tags", locals: {note: note} %>
   </h3>
-  <p><%= note.summary %></p>
+  <p class="primary-text"><%= note.summary %></p>
 <% end %>
