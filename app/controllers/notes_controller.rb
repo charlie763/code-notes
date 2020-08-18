@@ -32,7 +32,7 @@ class NotesController < ApplicationController
     end
 
     if terms = params[:terms]
-      @notes = Note.search(terms)
+      @notes = Note.search(terms, current_user)
     else 
       @notes = []
     end

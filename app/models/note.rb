@@ -11,11 +11,13 @@ class Note < ApplicationRecord
 
   validates :title, presence: true
 
-  def self.search(terms)
-    results = self
+  def self.search(terms, current_user)
+    results = self.all
     results = results.where("title LIKE ?", "%#{terms[:keyword]}%").or(results.where("summary LIKE ?", "%#{terms[:keyword]}%")) if terms[:keyword].present?
     results = results.joins(:language).where('languages.name LIKE ?', "%#{terms[:language]}%") if terms[:language].present?
     results = results.joins(:topics).where('topics.name LIKE ?', "%#{terms[:topic]}%") if terms[:topic].present?
+    results = results.joins(:user).where(user: current_user) if terms[:user] == "me"
+    results = results.joins(:user).where.not(user: current_user) if terms[:user] == "others"
     results
   end
 
