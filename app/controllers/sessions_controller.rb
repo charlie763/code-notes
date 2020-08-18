@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   layout "sessions"
   before_action :redirect_if_logged_in
   skip_before_action :redirect_if_logged_in, except: [:new, :create]
+  skip_before_action :redirect_if_not_logged_in, except: [:destroy]
 
   def new
   end

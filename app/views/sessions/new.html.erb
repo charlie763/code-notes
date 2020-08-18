@@ -3,13 +3,14 @@
     <h1>Log In</h1>
   </div>
 </div>
-<% if flash[:alert] %>
-  <div class="field_with_errors">
-    <label><%= flash[:alert] %></label>
-  </div>
-<% end %>
+
 <div class="row justify-content-center">
   <div class="col-md-8 col-10">
+    <% if flash[:alert] %>
+      <div class="field_with_errors">
+        <label><%= flash[:alert] %></label>
+      </div>
+    <% end %>
     <%= form_tag do %>
       <div class="form-group">
         <%= label_tag :username %>

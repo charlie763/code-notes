@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_153353) do
+ActiveRecord::Schema.define(version: 2020_08_18_212510) do
 
   create_table "code_snippets", force: :cascade do |t|
     t.text "code"
@@ -56,15 +56,7 @@ ActiveRecord::Schema.define(version: 2020_08_18_153353) do
     t.index ["topic_id", "note_id"], name: "index_notes_topics_on_topic_id_and_note_id"
   end
 
-  create_table "resource_subsections", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.string "type"
-    t.string "locator"
-  end
-
   create_table "topics", force: :cascade do |t|
-    t.string "topic_type"
     t.string "name"
     t.integer "topic_id"
     t.datetime "created_at", precision: 6, null: false
