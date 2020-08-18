@@ -51,6 +51,7 @@ class NotesController < ApplicationController
 
     validate_language
     validate_topics(new_topics)
+
     if @note.update(basic_note_params)
       redirect_to note_path(@note)
     else
@@ -65,7 +66,7 @@ class NotesController < ApplicationController
 
   private
   def basic_note_params
-    params.require(:note).permit(:title, :summary, code_snippets_attributes: [:code, :annotation])
+    params.require(:note).permit(:title, :summary, code_snippets_attributes: [:id, :code, :annotation])
   end
 
   def language_params
