@@ -29,7 +29,7 @@ class NotesController < ApplicationController
       @language = display_search_placeholder(:language)
       @topic = display_search_placeholder(:topic)
       @keyword = display_search_placeholder(:keyword)
-      @user = params[:terms][:user]
+      # @user = params[:terms][:user]
     end
 
     if terms = params[:terms]

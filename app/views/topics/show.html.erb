@@ -1,3 +1,13 @@
-<h1 class="mt-4 mb-3"><%= "#{@language.name} - #{@topic.name}" %></h1>
-<%= render partial: "notes/list_notes", locals: {notes: @notes} %>
+<div class="row justify-content-center px-2">
+  <div class="col-md-12">
+    <h1 class="mt-4 mb-3"><%= "#{@language.name} - #{@topic.name}" %></h1>
+    <div class="row my-3 px-2">
+      <%= form_with url: language_topic_path(@language, @topic), method: 'GET', local: true do %>
+        <%= render partial: "notes/user_filter" %>
+        <%= submit_tag "Filter", class: "btn-secondary submit-button" %>
+      <% end %>
+    </div>
+    <%= render partial: "notes/list_notes", locals: {notes: @notes} %>
+  </div>
+</div>
 

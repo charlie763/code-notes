@@ -18,7 +18,9 @@
           <%= text_field_tag 'terms[topic]', "", placeholder: "topic#{@topic}", class: "mx-2" %>
           <%= text_field_tag 'terms[keyword]', "", placeholder: "keyword#{@keyword}", class: "mx-2" %>
         </div>
-        <%= render partial: 'user_filter' %>
+        <div class="row justify-content-center my-2">
+          <%= render partial: 'user_filter' %>
+        </div>
         <div class="row justify-content-center my-3">
           <%= submit_tag "Search", name: nil, class: "btn-secondary submit-button" %>
         </div>
