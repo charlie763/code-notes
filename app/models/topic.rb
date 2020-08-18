@@ -1,4 +1,6 @@
 class Topic < ApplicationRecord
+  DISPLAY_COLORS = ["#EFBDEB", "#FF9F1C","#D90368", "#7F96FF", "#A30B37","#EF233C"]
+
   belongs_to :topic, required: false
   has_and_belongs_to_many :notes
 
@@ -8,6 +10,11 @@ class Topic < ApplicationRecord
 
   scope :names, -> {all.pluck(:name)}
 
+  def initialize(attributes = {})
+    super
+    self.display_color = DISPLAY_COLORS.sample
+  end
+  
   private
   def not_a_language
     language_names = Language.possible_names.map{|name| name.downcase}

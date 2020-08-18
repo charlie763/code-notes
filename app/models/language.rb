@@ -8,6 +8,11 @@ class Language < ApplicationRecord
 
   validates :name, inclusion: {in: POSSIBLE_NAMES}, uniqueness: true
 
+  def initialize(attributes = {})
+    super
+    self.display_color = DISPLAY_COLORS.sample
+  end
+
   def self.possible_names
     POSSIBLE_NAMES
   end
