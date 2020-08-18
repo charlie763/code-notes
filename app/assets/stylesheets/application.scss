@@ -60,6 +60,16 @@
   cursor: pointer;
 }
 
+.form-group > input {
+  width: 25%;
+}
+
+.form-group > textarea {
+  width: 75%;
+  height: 6rem;
+}
+
+
 .submit-button {
   border-radius: 2px;
   border: 2px outset #6c757d;
