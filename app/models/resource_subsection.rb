@@ -1,2 +1,0 @@
-class ResourceSubsection < ApplicationRecord
-end
