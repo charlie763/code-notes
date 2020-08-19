@@ -14,7 +14,13 @@ RSpec.describe "Notes feature", type: :feature do
       fill_in('note[code_snippets_attributes][0][code]', with: "<p>test code</p>")
       fill_in('note[code_snippets_attributes][0][annotation]', with: "that's what a paragraph tag looks") 
       click_button("Save")
-      #visit ''
+      
+      expect(page).to have_text("Test Title")
+      expect(page).to have_text("test note summary")
+      expect(page).to have_text("Python")
+      expect(page).to have_text("test topic name")
+      expect(page).to have_text("<p>test code</p>")
+      expect(page).to have_text("that's what a paragraph tag looks")
     end
   end
   
