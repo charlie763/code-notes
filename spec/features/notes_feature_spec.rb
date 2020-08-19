@@ -36,6 +36,16 @@ RSpec.describe "Notes feature", type: :feature do
 
       expect(page).to have_text("Language must be a software development language")
     end
+
+    it "doesn't create a code_snippet if code snippet fields left blank" do
+      initial_code_snippets_length = CodeSnippet.all.length
+      find_field('note_title').set("Test Title")
+      fill_in('note[summary]', with: "test note summary")
+      fill_in('note[language_attributes][name]', with: "Python")      
+      fill_in('note[topics_attributes][0][name]', with: "test topic name")
+      click_button("Save")
+      expect(CodeSnippet.all.length).to eq(initial_code_snippets_length)
+    end
   end
   
   # context "search" do
