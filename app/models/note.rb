@@ -34,8 +34,6 @@ class Note < ApplicationRecord
         topic.errors.messages.each do |error_key, error_value| 
           self.errors.add("topic.#{error_key}".to_sym, error_value.first)
         end
-      else
-        self.topics << topic unless self.topics.include?(topic) 
       end
     end 
   end

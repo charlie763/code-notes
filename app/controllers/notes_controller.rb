@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   include NotesHelper
-  
+
   def new
     @note = Note.new
     build_note_form
@@ -8,6 +8,7 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(basic_note_params)
+    @note.topics << Topic.find_or_create_by(topic_params)
     @note.add_language(language_params)
     @note.user = current_user
 
@@ -45,6 +46,8 @@ class NotesController < ApplicationController
 
   def update
     @note = find_note_by_id
+    topic = Topic.find_or_create_by(topic_params)
+    topic.notes << @note unless @note.topics.pluck(:id).include?(topic.id)
     @note.add_language(language_params)
 
     validate_language
@@ -62,10 +65,15 @@ class NotesController < ApplicationController
 
   private
   def basic_note_params
-    params.require(:note).permit(:id, :title, :summary, code_snippets_attributes: [:id, :code, :annotation], topics_attributes: [:name])
+    params.require(:note).permit(:id, :title, :summary, code_snippets_attributes: [:id, :code, :annotation])
   end
 
   def language_params
     params.require(:note).permit(language_attributes: [:name])[:language_attributes]
+  end
+
+  def topic_params
+    #params[:note][:topics_attributes]["0"][:id] = Topic.find_or_create_by(name: params[:note][:topics_attributes]["0"][:name]).id
+    params.require(:note).permit(topics_attributes: [:name])[:topics_attributes]["0"]
   end
 end
