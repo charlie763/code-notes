@@ -6,7 +6,8 @@ class Language < ApplicationRecord
   has_many :external_resources
   has_many :topics, through: :notes
 
-  validates :name, inclusion: {in: POSSIBLE_NAMES}, uniqueness: true
+  validates :name, inclusion: {in: POSSIBLE_NAMES, message: "must be a software development language"}
+  validates :name, uniqueness: true
 
   def initialize(attributes = {})
     super
