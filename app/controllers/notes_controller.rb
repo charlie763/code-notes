@@ -65,7 +65,7 @@ class NotesController < ApplicationController
 
   private
   def basic_note_params
-    params.require(:note).permit(:title, :summary, code_snippets_attributes: [:id, :code, :annotation])
+    params.require(:note).permit(:id, :title, :summary, code_snippets_attributes: [:id, :code, :annotation])
   end
 
   def language_params
@@ -76,21 +76,12 @@ class NotesController < ApplicationController
     params.require(:note).permit(topics_attributes: [:name])[:topics_attributes]
   end
 
-  def note_params
-    params.require(:note).permit(:title, 
-      :summary, 
-      code_snippets_attributes: [:id, :code, :annotation],
-      language_attributes: [:name],
-      topics_attributes: [:name]
-    )
-  end
-
   def build_note_form
     @note.build_language unless @note.language
     @note.topics.build if @note.topics.empty?
     @note.code_snippets.build if @note.code_snippets.empty?
     @language_names = Language.possible_names
-    @topic_names = Topic.names
+    @topics = Topic.all
   end
 
   def validate_language

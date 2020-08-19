@@ -19,8 +19,8 @@
       <%= t_form.label :name, display_error(t_form.object, :name, optional_name="Topic") %>
       <%= t_form.text_field :name, list: "topic_list", class: "form-control"  %>
       <datalist id ="topic_list">
-        <% @topic_names.each do |topic_name| %>
-          <option value="<%= topic_name %>">
+        <% @topics.each do |topic| %>
+          <option value="<%= topic.name %>">
         <% end %>
       </datalist>
     <% end %>

@@ -28,6 +28,6 @@ class Note < ApplicationRecord
 
   def add_topics(topics_params)
     new_topics = topics_params.values.map{|attr_hash| Topic.find_or_create_by(attr_hash)}
-    new_topics.each{|topic| self.topics << topic unless self.topics.include?(topic)} 
+    new_topics.each{|topic| self.topics << topic unless self.topics.include?(topic) || topic.invalid?} 
   end
 end
