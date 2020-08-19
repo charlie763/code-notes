@@ -6,10 +6,11 @@ class Note < ApplicationRecord
   belongs_to :language
 
   accepts_nested_attributes_for :language, reject_if: :all_blank
-  accepts_nested_attributes_for :topics, reject_if: :all_blank
+  accepts_nested_attributes_for :topics 
   accepts_nested_attributes_for :code_snippets, reject_if: :all_blank
 
   validates :title, presence: true
+  validate :add_topics
 
   def self.search(terms, current_user)
     results = self.all
@@ -26,8 +27,16 @@ class Note < ApplicationRecord
     self.language = language || Language.new(language_params)
   end
 
-  def add_topics(topics_params)
-    new_topics = topics_params.values.map{|attr_hash| Topic.find_or_create_by(attr_hash)}
-    new_topics.each{|topic| self.topics << topic unless self.topics.include?(topic) || topic.invalid?} 
+  private
+  def add_topics
+    self.topics.each do |topic| 
+      if topic.invalid?
+        topic.errors.messages.each do |error_key, error_value| 
+          self.errors.add("topic.#{error_key}".to_sym, error_value.first)
+        end
+      else
+        self.topics << topic unless self.topics.include?(topic) 
+      end
+    end 
   end
 end
