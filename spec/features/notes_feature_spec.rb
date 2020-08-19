@@ -1,17 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe "Notes feature", type: :feature do
+  before(:each){page.set_rack_session(user_id: 1)}
+  
   context "new note" do
     it "creates a new note given valid params" do
-      visit new_user_note_path(1)
+      visit new_note_path
      
-      fill_in('note[title]', with: "Test Title")
+      find_field('note_title').set("Test Title")
       fill_in('note[summary]', with: "test note summary")
       fill_in('note[language_attributes][name]', with: "Python")      
       fill_in('note[topics_attributes][0][name]', with: "test topic name")
       fill_in('note[code_snippets_attributes][0][code]', with: "<p>test code</p>")
       fill_in('note[code_snippets_attributes][0][annotation]', with: "that's what a paragraph tag looks") 
-      click_button("Create Note")
+      click_button("Save")
       #visit ''
     end
   end

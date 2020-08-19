@@ -24,7 +24,6 @@ end
 topics_attributes = (1..10).map{|num| {
     name: "Topic#{num}", 
     topic_id: [1,2,3,nil,nil,nil].sample, 
-    topic_type: ["general", "subtopic", "use case", "gem", "library", "web framework", "DSL"].sample
   }
 }
 

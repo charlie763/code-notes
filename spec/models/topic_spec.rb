@@ -7,7 +7,7 @@ RSpec.describe Topic, type: :model do
     email: "test@test.com"
   )}
 
-  let(:language){Language.create(name: "Ruby")}
+  let(:language){Language.find_or_create_by(name: "Ruby")}
 
   let(:note){Note.create(
     title: "Note1",
@@ -18,15 +18,14 @@ RSpec.describe Topic, type: :model do
 
   let(:topic1) {
     note.topics.create(
-    name: "Topic1", 
-    topic_type: "general"
+    name: "Topic1"
     )
   }
 
   let(:languages) {Language.possible_names}
 
   it "saves if attributes are valid" do
-    topic = note.topics.build(name: "Topic2", topic_type: "subtopic")
+    topic = note.topics.build(name: "Topic2")
     topic.topic = topic1
     topic.save
     expect(topic).to be_valid
@@ -41,7 +40,5 @@ RSpec.describe Topic, type: :model do
     topic1.update(topic_id: topic1.id)
     expect(topic1).not_to be_valid
   end
-
-#type must be "subtopic" if topic_id is present
 
 end
