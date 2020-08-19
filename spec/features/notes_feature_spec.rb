@@ -29,6 +29,13 @@ RSpec.describe "Notes feature", type: :feature do
       
       expect(page).to have_text("Title can't be blank")
     end
+
+    it "throws an error if the language doesn't match an existing language" do
+      fill_in('note[language_attributes][name]', with: "Charlie's Language")
+      click_button("Save")
+
+      expect(page).to have_text("Language must be a software development language")
+    end
   end
   
   # context "search" do
