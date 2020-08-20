@@ -65,7 +65,12 @@ class NotesController < ApplicationController
 
   private
   def basic_note_params
-    params.require(:note).permit(:id, :title, :summary, code_snippets_attributes: [:id, :code, :annotation])
+    params.require(:note).permit(:id, 
+      :title, 
+      :summary, 
+      code_snippets_attributes: [:id, :code, :annotation],
+      external_resources_attributes: [:id, :name, :url, :description]
+    )
   end
 
   def language_params

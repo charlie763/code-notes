@@ -63,4 +63,29 @@ RSpec.describe "Notes feature", type: :feature do
     end
   end
 
+  context "update note" do
+    it "updates the external resource when edits are made" do
+      visit edit_note_path(1)
+      fill_in('note[external_resources_attributes][0][name]', with: "Rspec Resource Name")
+      fill_in('note[external_resources_attributes][0][url]', with: "Rspec@rspec.com")
+      fill_in('note[external_resources_attributes][0][description]', with: "Rspec Resource description")
+      click_button("Save")
+      
+      expect(page).to have_text("Rspec Resource Name")
+      expect(page).to have_text("Rspec@rspec.com")
+      expect(page).to have_text("Rspec Resource description")
+    end
+
+    it "doesn't create a new external resource instead of updating the existing one" do
+      initial_external_resources_length = ExternalResource.all.length
+      visit edit_note_path(1)
+      fill_in('note[external_resources_attributes][0][name]', with: "Rspec Resource Name")
+      fill_in('note[external_resources_attributes][0][url]', with: "Rspec@rspec.com")
+      fill_in('note[external_resources_attributes][0][description]', with: "Rspec Resource description")
+      click_button("Save")
+      
+      expect(ExternalResource.all.length).to eq(initial_external_resources_length)
+    end
+  end
+
 end
