@@ -57,7 +57,7 @@ end
 
 #external resources
 ExternalResource.create(name: "google", url: "google.com", user: User.first, language: Language.first)
-ExternalResource.create(name: "Duck Duck go", url: "duckduckgo.com", user: User.first, language: Language.first).notes << Note.first
+ExternalResource.create(name: "Duck Duck go", url: "duckduckgo.com", user: User.first).notes << Note.first
 ExternalResource.create(name: "the internet", url: "internet.com", user: User.last, language: Language.first)
 ExternalResource.create(name: "friends", url: nil, language: Language.last, description: "I call up a friend and berate them until I get an answer", user: User.first)
 

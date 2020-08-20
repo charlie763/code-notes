@@ -60,7 +60,10 @@ class NotesController < ApplicationController
   end
 
   def destroy
-
+    @note = find_note_by_id
+    @note.code_snippets.destroy_all
+    @note.destroy
+    redirect_to notes_path
   end
 
   private

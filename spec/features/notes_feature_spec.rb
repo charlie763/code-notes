@@ -91,35 +91,30 @@ RSpec.describe "Notes feature", type: :feature do
   context "delete note" do
     before(:each){
       visit note_path(1)
-      click_button("Delete")
     }
-
-    let(:associated_code){Note.find(1).code_snippets.pluck(:id)}
-    let(:associated_resources){Note.find(1).external_resources.pluck(:id)}
-    let(:associated_language){Note.find(1).language.id}
-    let(:associated_topics){Note.find(1).topics.pluck(:id)}
-
+  
     it "deletes a note" do
+      click_button("Delete")
       expect(Note.find_by(id: 1)).to be_nil
     end
 
     it "deletes associated code_snippets" do
+      associated_code = Note.find(1).code_snippets.pluck(:id)
+      click_button("Delete")
       associated_code.each do |snippet_id|
         expect(CodeSnippet.find_by(id: snippet_id)).to be_nil
       end
     end
 
-    it "deletes associated external resource" do
-      associated_resources.each do |resource_id|
-        expect(ExternalResource.find_by(id: resource_id)).to be_nil
-      end
-    end
-
     it "does not delete associated language" do
+      associated_language = Note.find(1).language.id
+      click_button("Delete")
       expect(Language.find_by(id: associated_language)).to be_truthy
     end
 
     it "does note delete an associated topic" do
+      associated_topics = Note.find(1).topics.pluck(:id)
+      click_button("Delete")
       associated_topics.each do |topic_id|
         expect(Topic.find_by(id: topic_id)).to be_truthy
       end
