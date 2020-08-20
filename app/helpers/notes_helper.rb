@@ -3,6 +3,7 @@ module NotesHelper
     @note.build_language unless @note.language
     @note.topics.build if @note.topics.empty?
     @note.code_snippets.build if @note.code_snippets.empty?
+    @note.external_resources.build if @note.external_resources.empty?
     @language_names = Language.possible_names
     @topics = Topic.all
   end

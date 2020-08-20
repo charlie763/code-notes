@@ -39,5 +39,17 @@
       <%= c_form.text_area :annotation, placeholder: "notes about the code", class: "form-control" %><br>    
     <% end %>
   </div>
+
+  <div class="form-group">
+    <%= f.label :external_resources, "Resource: ", class: "font-weight-bold primary-text" %><br>
+    <%= f.fields_for :external_resources do |r_form| %>
+      <%= r_form.label :name, "Name: " %>
+      <%= r_form.text_field :name, class: "form-control" %><br>
+      <%= r_form.label :url, "Url: " %>
+      <%= r_form.text_field :url, class: "form-control" %><br>
+      <%= r_form.label :description, "Description: " %>      
+      <%= r_form.text_area :description, placeholder: "description of the resource", class: "form-control" %><br>    
+    <% end %>
+  </div>
   <%= f.submit "Save", class: "btn-secondary submit-button" %>
 <% end %>
