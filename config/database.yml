@@ -21,6 +21,5 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  adaptor: sqlite3
-  database: db/production.sqlite3
+  adaptor: postgresql
+  database: ENV['DATABASE_URL']
