@@ -32,7 +32,9 @@
       </div>
       <br>
     <% end %>
-    <%= render partial: 'external_resources/list', locals:{external_resources: @note.external_resources} %>
+    <% unless @note.external_resources.empty? %>
+      <%= render partial: 'external_resources/list', locals:{external_resources: @note.external_resources} %>
+    <% end %>
   </div>
 </div>
 

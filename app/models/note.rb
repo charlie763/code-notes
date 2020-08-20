@@ -8,7 +8,7 @@ class Note < ApplicationRecord
   accepts_nested_attributes_for :language, reject_if: :all_blank
   accepts_nested_attributes_for :topics 
   accepts_nested_attributes_for :code_snippets, reject_if: :all_blank
-  accepts_nested_attributes_for :external_resources, reject_if: :all_blank
+  accepts_nested_attributes_for :external_resources, reject_if: proc{|attr_hash| attr_hash['name'].blank? || (attr_hash['url'].blank? && attr_hash['description'].blank?)}
 
   validates :title, presence: true
   validate :add_topics
