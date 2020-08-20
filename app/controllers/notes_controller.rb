@@ -46,6 +46,10 @@ class NotesController < ApplicationController
 
   def update
     @note = find_note_by_id
+    unless @note.user == current_user
+      redirect_to note_path(@note) and return
+    end
+
     topic = Topic.find_or_create_by(topic_params)
     topic.notes << @note unless @note.topics.pluck(:id).include?(topic.id)
     @note.add_language(language_params)
@@ -61,6 +65,10 @@ class NotesController < ApplicationController
 
   def destroy
     @note = find_note_by_id
+    unless @note.user == current_user
+      redirect_to note_path(@note) and return
+    end
+
     @note.code_snippets.destroy_all
     @note.destroy
     redirect_to notes_path
