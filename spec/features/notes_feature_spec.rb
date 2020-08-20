@@ -22,6 +22,21 @@ RSpec.describe "Notes feature", type: :feature do
       expect(page).to have_text("that's what a paragraph tag looks")
     end
 
+    it "can add an external resource via new notes" do
+      find_field('note_title').set("Test Title")
+      fill_in('note[summary]', with: "test note summary")
+      fill_in('note[language_attributes][name]', with: "Python")      
+      fill_in('note[topics_attributes][0][name]', with: "test topic name")
+      fill_in('note[external_resources_attributes][0][name]', with: "Rspec Resource Name")
+      fill_in('note[external_resources_attributes][0][url]', with: "Rspec@rspec.com")
+      fill_in('note[external_resources_attributes][0][description]', with: "Rspec Resource description")
+      click_button("Save")
+      
+      expect(page).to have_text("Rspec Resource Name")
+      expect(page).to have_text("Rspec@rspec.com")
+      expect(page).to have_text("Rspec Resource description")
+    end
+
     it "throws an error if the title is blank" do
       fill_in('note[language_attributes][name]', with: "Python")      
       fill_in('note[topics_attributes][0][name]', with: "test topic name")
