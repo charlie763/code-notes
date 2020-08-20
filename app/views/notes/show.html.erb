@@ -8,6 +8,10 @@
   <span class="mx-2 primary-text icon-label">Edit</span>
 </a>
 
+<%= form_with url: note_path(@note), method: "delete" do%>
+  <button type="submit" class="mx-2 icon-label">Delete</button>
+<% end %>
+
 <div class="row justify-content-start pt-3 px-3">
   <div class="col-md-10, col-12">
     <div class="row">

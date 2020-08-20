@@ -105,23 +105,23 @@ RSpec.describe "Notes feature", type: :feature do
 
     it "deletes associated code_snippets" do
       associated_code.each do |snippet_id|
-        expect(CodeSnippet.find_by(id: snippet_id).to be_nil
+        expect(CodeSnippet.find_by(id: snippet_id)).to be_nil
       end
     end
 
     it "deletes associated external resource" do
       associated_resources.each do |resource_id|
-        expect(ExternalResource.find_by(id: resource_id).to be_nil
+        expect(ExternalResource.find_by(id: resource_id)).to be_nil
       end
     end
 
     it "does not delete associated language" do
-      expect(Langauge.find_by(id: associated_language)).to exist
+      expect(Language.find_by(id: associated_language)).to be_truthy
     end
 
     it "does note delete an associated topic" do
       associated_topics.each do |topic_id|
-        expect(Topic.find_by(id: topic_id)).to exist
+        expect(Topic.find_by(id: topic_id)).to be_truthy
       end
     end
   end
