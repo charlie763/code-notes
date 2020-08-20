@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_08_18_212510) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "code_snippets", force: :cascade do |t|
     t.text "code"
     t.text "annotation"
@@ -30,8 +33,8 @@ ActiveRecord::Schema.define(version: 2020_08_18_212510) do
   end
 
   create_table "external_resources_notes", id: false, force: :cascade do |t|
-    t.integer "external_resource_id", null: false
-    t.integer "note_id", null: false
+    t.bigint "external_resource_id", null: false
+    t.bigint "note_id", null: false
   end
 
   create_table "languages", force: :cascade do |t|
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 2020_08_18_212510) do
   end
 
   create_table "notes_topics", id: false, force: :cascade do |t|
-    t.integer "topic_id", null: false
-    t.integer "note_id", null: false
+    t.bigint "topic_id", null: false
+    t.bigint "note_id", null: false
     t.index ["note_id", "topic_id"], name: "index_notes_topics_on_note_id_and_topic_id"
     t.index ["topic_id", "note_id"], name: "index_notes_topics_on_topic_id_and_note_id"
   end

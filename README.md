@@ -5,7 +5,7 @@ Code Notes is my Rails portfolio project for the Flatiron coding bootcamp. It is
 ![homescreen](http://drive.google.com/uc?export=view&id=1uI1dgXGcIa8jN49emCgQnpUr8wS9f6xW)
 
 ## Installation and Usage
-To install, clone the repository and run `bundle install`. The gemfile specifies dependencies.
+To install, clone the repository and run `bundle install`. The gemfile specifies dependencies. Database configuration is specified in the `config/database.yml` file and environmental variables are set in the `.env` file. To make the github omniauth work a Github KEY and SECRET need to be added as environmental variables.
 
 Here is an ERD of the models used in the application:
 ![homescreen](https://drive.google.com/uc?export=view&id=1hSrFDUvPk4mj7UBNQY5f4UI5dQ1cUJak)
