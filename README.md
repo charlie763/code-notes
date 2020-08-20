@@ -3,7 +3,7 @@
 ## Description
 Code Notes is my Rails portfolio project for the Flatiron coding bootcamp. It is an application for taking, organizing, and search for notes about software development.  
 
-![homescreen](https://drive.google.com/file/d/1uI1dgXGcIa8jN49emCgQnpUr8wS9f6xW/view?usp=sharing)
+![homescreen](http://drive.google.com/uc?export=view&id=1uI1dgXGcIa8jN49emCgQnpUr8wS9f6xW/view?usp=sharing)
 
 ## Installation
 To install, clone the repository and run `bundle install`. The gemfile specifies dependencies.
