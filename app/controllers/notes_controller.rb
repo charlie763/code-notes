@@ -73,7 +73,6 @@ class NotesController < ApplicationController
   end
 
   def topic_params
-    #params[:note][:topics_attributes]["0"][:id] = Topic.find_or_create_by(name: params[:note][:topics_attributes]["0"][:name]).id
     params.require(:note).permit(topics_attributes: [:name])[:topics_attributes]["0"]
   end
 end
