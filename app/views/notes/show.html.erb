@@ -22,6 +22,16 @@
       </div>
       <br>
     <% end %>
+    <h3>Resources:</h3>
+    <ul>
+      <% @note.external_resources.each do |external_resource| %>
+        <li>
+          <span><%= external_resource.name %></span>
+          <span class="font-italic"><%= "  - #{external_resource.display_description}" %></span><br>
+          <%= link_to "#{external_resource.url}", external_resource.url if external_resource.url %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
 

@@ -49,6 +49,7 @@
       <%= r_form.text_field :url, class: "form-control" %><br>
       <%= r_form.label :description, "Description: " %>      
       <%= r_form.text_area :description, placeholder: "description of the resource", class: "form-control" %><br>    
+      <%= r_form.hidden_field :user_id, value: current_user.id %>
     <% end %>
   </div>
   <%= f.submit "Save", class: "btn-secondary submit-button" %>

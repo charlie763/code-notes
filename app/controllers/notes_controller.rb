@@ -69,7 +69,7 @@ class NotesController < ApplicationController
       :title, 
       :summary, 
       code_snippets_attributes: [:id, :code, :annotation],
-      external_resources_attributes: [:id, :name, :url, :description]
+      external_resources_attributes: [:id, :name, :url, :description, :user_id]
     )
   end
 
