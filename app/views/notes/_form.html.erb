@@ -14,23 +14,27 @@
       </datalist>
     <% end %>
   </div>
-  <div id="note_topics_form_group" class="form-group">
-    <%= f.fields_for :topics do |t_form| %>
-      <%= t_form.label :name, display_error(t_form.object, :name, optional_name="Topic") %>
-      <%= t_form.text_field :name, list: "topic_list", class: "form-control"  %>
-      <datalist id ="topic_list">
-        <% @topics.each do |topic| %>
-          <option value="<%= topic.name %>">
-        <% end %>
-      </datalist>
-      <span id="new_topic">More Topics</span>
-    <% end %>
-  </div>
   <div class="form-group">
     <%= f.label :summary, "Summary: " %><br>
     <%= f.text_area :summary, placeholder: "summary", class: "form-control" %>
   </div>
   <br>
+  <div id="note_topics_form_group" class="form-group">
+    <label class="font-weight-bold">Topics: </label>
+    <br>
+    <%= f.fields_for :topics do |t_form| %>
+      <%= t_form.text_field :name, list: "topic_list", class: "form-control form-control-2 my-1"  %>
+      <datalist id ="topic_list">
+        <% @topics.each do |topic| %>
+          <option value="<%= topic.name %>">
+        <% end %>
+      </datalist>
+       <input type="submit" class="link-button primary-text" form="delete_topic" value="x">
+       <br>
+    <% end %>
+    <span id="new_topic">Add Topics</span>
+    <br>
+  </div>
   <div class="form-group">
     <%= f.label :code_snippets, "Code: ", class: "font-weight-bold primary-text" %><br>
     <%= f.fields_for :code_snippets do |c_form| %>
@@ -55,3 +59,7 @@
   </div>
   <%= f.submit "Save", class: "btn-secondary submit-button" %>
 <% end %>
+
+<form action="/delete_topic" method="post" id="delete_topic">
+  
+</form>
