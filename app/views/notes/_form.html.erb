@@ -34,9 +34,12 @@
       <% end %>
        <br>
     <% end %>
-    <span id="new_topic">Add Topics</span>
-    <br>
+    <div id="new_topic" class="pointer">
+      <%= image_tag "add-icon.png", class: "icon"%> 
+      <span class="icon-label">Add Topics</span>
+    </div>
   </div>
+  <br>
   <div class="form-group">
     <%= f.label :code_snippets, "Code: ", class: "font-weight-bold primary-text" %><br>
     <%= f.fields_for :code_snippets do |c_form| %>
