@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   delete '/login', to: 'sessions#destroy'
   resources :users, only: [:new, :create]
   
-  resources :notes
+  resources :notes do
+    resources :topics, only: [:destroy]
+  end
+
   resources :languages, only: [:index, :show] do
     resources :topics, only: [:index, :show]
     resources :external_resources, only: [:new, :create]

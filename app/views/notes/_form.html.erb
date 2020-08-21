@@ -29,7 +29,9 @@
           <option value="<%= topic.name %>">
         <% end %>
       </datalist>
-       <input type="submit" class="link-button primary-text" form="delete_topic" value="x">
+      <% if note.valid? %>
+        <input type="submit" class="link-button primary-text" form="delete_topic" formaction="<%= note_topic_path(note, t_form.object)%>" value="x">
+      <% end %>
        <br>
     <% end %>
     <span id="new_topic">Add Topics</span>
@@ -60,6 +62,6 @@
   <%= f.submit "Save", class: "btn-secondary submit-button" %>
 <% end %>
 
-<form action="/delete_topic" method="post" id="delete_topic">
-  
+<form method="post" id="delete_topic">
+  <input type="hidden" name="_method" value="delete">
 </form>
