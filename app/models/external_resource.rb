@@ -7,7 +7,7 @@ class ExternalResource < ApplicationRecord
   validate :url_or_description_present
 
   def display_description
-    description ? description : "(no description)"
+    description && description.present? ? description : "(no description)"
   end
 
   private
