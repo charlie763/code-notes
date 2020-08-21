@@ -3,7 +3,7 @@
   <%= render partial: "display_tags", locals: {note: @note} %>
 </h1>
 
-<% if @note.user == current_user %>
+<% if @note.user.id == current_user.id %>
   <div class="row">
     <a href="<%= edit_note_path(@note)%>" class="nav-link">
       <%= image_tag "edit-icon.png", class: "icon"%> 
@@ -11,7 +11,7 @@
     </a>
     <div class="py-2">
       <%= form_with url: note_path(@note), method: "delete" do%>
-        <button type="submit" class="link-button">
+        <button id="Delete" type="submit" class="link-button">
           <%= image_tag "delete-icon.png", class: "icon"%>
           <span class="mx-2 icon-label primary-text">Delete</span>
         </button>

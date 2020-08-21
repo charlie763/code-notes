@@ -1,6 +1,6 @@
 class ExternalResource < ApplicationRecord
   belongs_to :language, required: false
-  belongs_to :user
+  belongs_to :user, required: false
   has_and_belongs_to_many :notes
 
   validates :name, presence: true

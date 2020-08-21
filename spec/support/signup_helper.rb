@@ -1,6 +1,6 @@
 module SignupHelper
   def user_login(login_params)
-    visit '/users/new'
+    visit '/login'
     fill_in("user[username]", with: login_params[:username])
     fill_in("user[password]", with: login_params[:password])
     click_button("Log In")

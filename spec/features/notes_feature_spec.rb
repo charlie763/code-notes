@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Notes feature", type: :feature do
   before(:each){page.set_rack_session(user_id: 1)}
+  let(:current_user_note){Note.where(user_id: 1).first}
   
   context "new note" do
     before(:each){visit new_note_path}
@@ -64,8 +65,9 @@ RSpec.describe "Notes feature", type: :feature do
   end
 
   context "update note" do
+    before(:each){current_user_note.external_resources.create(name: "Rspec resource", url: "Rspec url")}
     it "updates the external resource when edits are made" do
-      visit edit_note_path(1)
+      visit edit_note_path(current_user_note)
       fill_in('note[external_resources_attributes][0][name]', with: "Rspec Resource Name")
       fill_in('note[external_resources_attributes][0][url]', with: "Rspec@rspec.com")
       fill_in('note[external_resources_attributes][0][description]', with: "Rspec Resource description")
@@ -78,7 +80,7 @@ RSpec.describe "Notes feature", type: :feature do
 
     it "doesn't create a new external resource instead of updating the existing one" do
       initial_external_resources_length = ExternalResource.all.length
-      visit edit_note_path(1)
+      visit edit_note_path(current_user_note)
       fill_in('note[external_resources_attributes][0][name]', with: "Rspec Resource Name")
       fill_in('note[external_resources_attributes][0][url]', with: "Rspec@rspec.com")
       fill_in('note[external_resources_attributes][0][description]', with: "Rspec Resource description")
@@ -88,37 +90,38 @@ RSpec.describe "Notes feature", type: :feature do
     end
   end
 
-  # context "delete note" do
-  #   before(:each){
-  #     visit note_path(1)
-  #   }
+  context "delete note" do
+    before(:each){
+      visit note_path(current_user_note)
+    }
   
-  #   it "deletes a note" do
-  #     click_button("Delete")
-  #     expect(Note.find_by(id: 1)).to be_nil
-  #   end
+    it "deletes a note" do
+      current_note_id = current_user_note.id
+      click_button("Delete")
+      expect(Note.find_by(id: current_user_note)).to be_nil
+    end
 
-  #   it "deletes associated code_snippets" do
-  #     associated_code = Note.find(1).code_snippets.pluck(:id)
-  #     click_button("Delete")
-  #     associated_code.each do |snippet_id|
-  #       expect(CodeSnippet.find_by(id: snippet_id)).to be_nil
-  #     end
-  #   end
+    it "deletes associated code_snippets" do
+      associated_code = Note.find(current_user_note.id).code_snippets.pluck(:id)
+      click_button("Delete")
+      associated_code.each do |snippet_id|
+        expect(CodeSnippet.find_by(id: snippet_id)).to be_nil
+      end
+    end
 
-  #   it "does not delete associated language" do
-  #     associated_language = Note.find(1).language.id
-  #     click_button("Delete")
-  #     expect(Language.find_by(id: associated_language)).to be_truthy
-  #   end
+    it "does not delete associated language" do
+      associated_language = Note.find(current_user_note.id).language.id
+      click_button("Delete")
+      expect(Language.find_by(id: associated_language)).to be_truthy
+    end
 
-  #   it "does note delete an associated topic" do
-  #     associated_topics = Note.find(1).topics.pluck(:id)
-  #     click_button("Delete")
-  #     associated_topics.each do |topic_id|
-  #       expect(Topic.find_by(id: topic_id)).to be_truthy
-  #     end
-  #   end
-  # end
+    it "does note delete an associated topic" do
+      associated_topics = Note.find(current_user_note.id).topics.pluck(:id)
+      click_button("Delete")
+      associated_topics.each do |topic_id|
+        expect(Topic.find_by(id: topic_id)).to be_truthy
+      end
+    end
+  end
 
 end
