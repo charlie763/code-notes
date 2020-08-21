@@ -14,7 +14,7 @@
       </datalist>
     <% end %>
   </div>
-  <div class="form-group">
+  <div id="note_topics_form_group" class="form-group">
     <%= f.fields_for :topics do |t_form| %>
       <%= t_form.label :name, display_error(t_form.object, :name, optional_name="Topic") %>
       <%= t_form.text_field :name, list: "topic_list", class: "form-control"  %>
@@ -23,6 +23,7 @@
           <option value="<%= topic.name %>">
         <% end %>
       </datalist>
+      <span id="new_topic">More Topics</span>
     <% end %>
   </div>
   <div class="form-group">

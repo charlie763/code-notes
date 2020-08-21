@@ -4,6 +4,7 @@
 // that code so it'll be compiled.
 
 import 'bootstrap'
+// require("packs/note")
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
@@ -16,3 +17,4 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+

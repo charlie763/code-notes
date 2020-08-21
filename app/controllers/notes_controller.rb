@@ -8,7 +8,7 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(basic_note_params)
-    @note.topics << Topic.find_or_create_by(topic_params)
+    topic_params.values.each{|topic| @note.topics << Topic.find_or_create_by(topic)}
     @note.add_language(language_params)
     @note.user = current_user
 
@@ -50,8 +50,10 @@ class NotesController < ApplicationController
       redirect_to note_path(@note) and return
     end
 
-    topic = Topic.find_or_create_by(topic_params)
-    topic.notes << @note unless @note.topics.pluck(:id).include?(topic.id)
+    topic_params.values.each do |topic|
+      new_topic = Topic.find_or_create_by(topic)
+      new_topic.notes << @note unless @note.topics.pluck(:id).include?(new_topic.id)
+    end
     @note.add_language(language_params)
 
     validate_language
@@ -89,6 +91,6 @@ class NotesController < ApplicationController
   end
 
   def topic_params
-    params.require(:note).permit(topics_attributes: [:name])[:topics_attributes]["0"]
+    params.require(:note).permit(topics_attributes: [:name])[:topics_attributes]
   end
 end
