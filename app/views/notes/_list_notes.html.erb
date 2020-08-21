@@ -1,6 +1,7 @@
 <% notes.each do |note| %>
   <h3>
     <%= link_to note.title, note_path(note), class: "primary-text" %>
+    <span class="ml-2 subtitle">by <%= note.user.username %></span>
     <%= render partial: "notes/display_tags", locals: {note: note} %>
   </h3>
   <p class="primary-text"><%= note.summary %></p>
