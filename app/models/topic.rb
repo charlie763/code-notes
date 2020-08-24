@@ -4,7 +4,7 @@ class Topic < ApplicationRecord
   belongs_to :topic, required: false
   has_and_belongs_to_many :notes
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, uniqueness: true
   validate :not_a_language
   validate :not_own_subtopic
 

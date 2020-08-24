@@ -38,14 +38,6 @@ RSpec.describe "Notes feature", type: :feature do
       expect(page).to have_text("Rspec Resource description")
     end
 
-    it "throws an error if the title is blank" do
-      fill_in('note[language_attributes][name]', with: "Python")      
-      fill_in('note[topics_attributes][0][name]', with: "test topic name")
-      click_button("Save")
-      
-      expect(page).to have_text("Title can't be blank")
-    end
-
     it "throws an error if the language doesn't match an existing language" do
       fill_in('note[language_attributes][name]', with: "Charlie's Language")
       click_button("Save")

@@ -6,12 +6,11 @@ class Note < ApplicationRecord
   belongs_to :language
 
   accepts_nested_attributes_for :language, reject_if: :all_blank
-  accepts_nested_attributes_for :topics 
+  accepts_nested_attributes_for :topics, reject_if: :all_blank 
   accepts_nested_attributes_for :code_snippets, reject_if: :all_blank
   accepts_nested_attributes_for :external_resources, reject_if: proc{|attr_hash| attr_hash['name'].blank? || (attr_hash['url'].blank? && attr_hash['description'].blank?)}
 
   validates :title, presence: true
-  validate :add_topics
 
   def self.search(terms, current_user)
     results = self.all
@@ -28,14 +27,23 @@ class Note < ApplicationRecord
     self.language = language || Language.new(language_params)
   end
 
-  private
-  def add_topics
-    self.topics.each do |topic| 
-      if topic.invalid?
-        topic.errors.messages.each do |error_key, error_value| 
-          self.errors.add("topic.#{error_key}".to_sym, error_value.first)
-        end
+  def add_topics(topic_params)
+    topic_params.values.each do |topic| 
+      if topic[:name].present?
+        new_topic = Topic.find_or_create_by(topic)
+        new_topic.notes << self unless self.topics.pluck(:id).include?(new_topic.id)
       end
-    end 
+    end
   end
+
+  # private
+  # def validate_topics
+  #   self.topics.each do |topic| 
+  #     if topic.invalid?
+  #       topic.errors.messages.each do |error_key, error_value| 
+  #         self.errors.add("topic.#{error_key}".to_sym, error_value.first)
+  #       end
+  #     end
+  #   end 
+  # end
 end
