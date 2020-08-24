@@ -6,7 +6,7 @@ class Note < ApplicationRecord
         attributes.values.each do |topic_name| 
           if topic_name.present?
             new_topic = Topic.find_by(name: topic_name) || Topic.new(name: topic_name)
-            if note.persisted?
+            if note.persisted? && new_topic.persisted?
               new_topic.notes << note unless note.topics.pluck(:id).include?(new_topic.id)
             else
               note.topics << new_topic
@@ -41,38 +41,9 @@ class Note < ApplicationRecord
     results
   end
 
-  # def topics
-  #   super
-  #   # def build(attributes={})
-  #   #   super
-  #     # attributes.values.each do |topic| 
-  #     #   if topic[:name].present?
-  #     #     new_topic = Topic.find_or_create_by(topic)
-  #     #     if self.persisted?
-  #     #       new_topic.notes << self unless self.topics.pluck(:id).include?(new_topic.id)
-  #     #     else
-  #     #       self.topics << new_topic
-  #     #     end
-  #     #   end
-  #     # end
-  #   # end
-  # end
-
   def build_language(attributes={})
     language = Language.find_by(attributes)
     self.language = language || Language.new(attributes)
   end
 
- 
-
-  # private
-  # def validate_topics
-  #   self.topics.each do |topic| 
-  #     if topic.invalid?
-  #       topic.errors.messages.each do |error_key, error_value| 
-  #         self.errors.add("topic.#{error_key}".to_sym, error_value.first)
-  #       end
-  #     end
-  #   end 
-  # end
 end
