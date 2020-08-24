@@ -22,9 +22,9 @@ class Note < ApplicationRecord
     results
   end
 
-  def add_language(language_params)
-    language = Language.find_by(language_params)
-    self.language = language || Language.new(language_params)
+  def build_language(attributes={})
+    language = Language.find_by(attributes)
+    self.language = language || Language.new(attributes)
   end
 
   def add_topics(topic_params)

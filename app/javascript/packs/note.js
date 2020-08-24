@@ -11,4 +11,4 @@ function add_topic(){
   document.getElementById("note_topics_form_group").appendChild(topic_field);
 }
 
-document.getElementById ("new_topic").addEventListener ("click", add_topic);
+document.getElementById("new_topic").addEventListener("click", add_topic);

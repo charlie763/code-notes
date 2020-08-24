@@ -8,9 +8,9 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(basic_note_params)
-    @note.add_language(language_params)
+    #@note.add_language(language_params)
     @note.user = current_user
-    @note.add_topics(topic_params)
+    #@note.add_topics(topic_params)
 
     if @note.save
       redirect_to note_path(@note.id)
@@ -73,9 +73,12 @@ class NotesController < ApplicationController
 
   private
   def basic_note_params
+    #params[:note][:topics_attributes]["0"]["id"]=Topic.find_by(params.require(:note).permit(topics_attributes: [:name])[:topics_attributes]["0"]).id
     params.require(:note).permit(:id, 
       :title, 
-      :summary, 
+      :summary,
+      language_attributes: [:name], 
+      topics_attributes: [:name],
       code_snippets_attributes: [:id, :code, :annotation],
       external_resources_attributes: [:id, :name, :url, :description, :user_id]
     )

@@ -34,7 +34,7 @@
           <option value="<%= topic.name %>">
         <% end %>
       </datalist>
-      <% if note.persisted? && t_form.object.id %>
+      <% if note.persisted? && t_form.object.persisted? %>
         <input type="submit" class="link-button primary-text" form="delete_topic" formaction="<%= note_topic_path(note, t_form.object)%>" value="x">
       <% end %>
        <br>
