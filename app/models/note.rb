@@ -1,5 +1,24 @@
 class Note < ApplicationRecord
-  has_and_belongs_to_many :topics 
+  has_and_belongs_to_many :topics do 
+    def build(attributes = {}, &block)
+      note = proxy_association.owner
+      if attributes.present?
+        attributes.values.each do |topic_name| 
+          if topic_name.present?
+            new_topic = Topic.find_by(name: topic_name) || Topic.new(name: topic_name)
+            if note.persisted?
+              new_topic.notes << note unless note.topics.pluck(:id).include?(new_topic.id)
+            else
+              note.topics << new_topic
+            end
+          end
+        end
+      else
+        note.topics << Topic.new()
+      end
+    end
+  end
+
   has_and_belongs_to_many :external_resources
   has_many :code_snippets
   belongs_to :user
@@ -22,23 +41,29 @@ class Note < ApplicationRecord
     results
   end
 
+  # def topics
+  #   super
+  #   # def build(attributes={})
+  #   #   super
+  #     # attributes.values.each do |topic| 
+  #     #   if topic[:name].present?
+  #     #     new_topic = Topic.find_or_create_by(topic)
+  #     #     if self.persisted?
+  #     #       new_topic.notes << self unless self.topics.pluck(:id).include?(new_topic.id)
+  #     #     else
+  #     #       self.topics << new_topic
+  #     #     end
+  #     #   end
+  #     # end
+  #   # end
+  # end
+
   def build_language(attributes={})
     language = Language.find_by(attributes)
     self.language = language || Language.new(attributes)
   end
 
-  def add_topics(topic_params)
-    topic_params.values.each do |topic| 
-      if topic[:name].present?
-        new_topic = Topic.find_or_create_by(topic)
-        if self.persisted?
-          new_topic.notes << self unless self.topics.pluck(:id).include?(new_topic.id)
-        else
-          self.topics << new_topic
-        end
-      end
-    end
-  end
+ 
 
   # private
   # def validate_topics

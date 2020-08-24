@@ -8,7 +8,6 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(basic_note_params)
-    #@note.add_language(language_params)
     @note.user = current_user
     #@note.add_topics(topic_params)
 
@@ -49,7 +48,6 @@ class NotesController < ApplicationController
       redirect_to note_path(@note) and return
     end
     
-    @note.add_language(language_params)
     @note.add_topics(topic_params)
 
     if @note.update(basic_note_params)
