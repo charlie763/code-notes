@@ -31,7 +31,11 @@ class Note < ApplicationRecord
     topic_params.values.each do |topic| 
       if topic[:name].present?
         new_topic = Topic.find_or_create_by(topic)
-        new_topic.notes << self unless self.topics.pluck(:id).include?(new_topic.id)
+        if self.persisted?
+          new_topic.notes << self unless self.topics.pluck(:id).include?(new_topic.id)
+        else
+          self.topics << new_topic
+        end
       end
     end
   end

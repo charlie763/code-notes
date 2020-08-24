@@ -21,6 +21,11 @@
   <br>
   <div id="note_topics_form_group" class="form-group">
     <label class="font-weight-bold">Topics: </label>
+    <% if topic_error = note.errors.messages[:"topics.name"] %>
+      <div class="field_with_errors">
+        <label><%= topic_error[0] %></label>
+      </div>
+    <% end %>
     <br>
     <%= f.fields_for :topics do |t_form| %>
       <%= t_form.text_field :name, list: "topic_list", class: "form-control form-control-2 my-1"  %>
