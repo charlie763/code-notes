@@ -19,8 +19,4 @@ module NotesHelper
   def validate_language
     @note.language.valid?
   end
-
-  def validate_topics
-    @note.topics.each{|topic| topic.valid?}
-  end
 end
