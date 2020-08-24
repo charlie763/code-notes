@@ -1,11 +1,28 @@
 <div class="row justify-content-center px-2">
   <div class="col-md-12">
     <h1 class="mt-4 mb-3">Languages</h1>
+    <%= form_with url: "/languages", method: 'GET', local: true do %>
+        <div class="row justify-content-center">
+          <div class="col-md-4 col-10">
+            <%= text_field_tag 'term', "", placeholder: "language", class: "mx-2 search-input" %>
+          </div>
+        </div>
+        <div class="row justify-content-center my-3">
+          <%= submit_tag "Search", name: nil, class: "btn-secondary submit-button" %>
+        </div>
+      <% end %>
+      <ul>
+      <% @search_languages.each do |language| %>
+        <li><%= link_to language.name, language_path(language), class: "primary-text" %></li>
+      <% end %>
+    </ul>
+  <% if false %>
     <ul>
       <% @languages.each do |language| %>
         <li><%= link_to language.name, language_path(language), class: "primary-text" %></li>
       <% end %>
     </ul>
+  <% end %>
   </div>
 </div>
 

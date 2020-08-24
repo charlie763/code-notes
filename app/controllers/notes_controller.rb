@@ -12,7 +12,6 @@ class NotesController < ApplicationController
     @note.user = current_user
     @note.add_topics(topic_params)
 
-    validate_language
     if @note.save
       redirect_to note_path(@note.id)
     else
@@ -52,7 +51,7 @@ class NotesController < ApplicationController
     
     @note.add_language(language_params)
     @note.add_topics(topic_params)
-    validate_language
+
     if @note.update(basic_note_params)
       redirect_to note_path(@note)
     else

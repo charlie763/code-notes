@@ -1,6 +1,7 @@
 class LanguagesController < ApplicationController
   def index
     @languages = current_user.languages.distinct
+    @search_languages = Language.search(params[:term]) 
   end
 
   def show

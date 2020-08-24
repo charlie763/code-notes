@@ -17,5 +17,9 @@ class Language < ApplicationRecord
   def self.possible_names
     POSSIBLE_NAMES
   end
+
+  def self.search(term)
+    self.where("name Like ?", "%#{term}%")
+  end
   
 end
