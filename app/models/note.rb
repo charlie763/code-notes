@@ -1,4 +1,6 @@
 class Note < ApplicationRecord
+  #custom topics.build method created so that it first checks for existing topics before creating a new topic,
+  #and also makes sure that the existing topic is not already associated with the note instance
   has_and_belongs_to_many :topics do 
     def build(attributes = {}, &block)
       note = proxy_association.owner
