@@ -22,8 +22,7 @@ end
 
 #topics
 topics_attributes = (1..10).map{|num| {
-    name: "Topic#{num}", 
-    topic_id: [1,2,3,nil,nil,nil].sample, 
+    name: "Topic#{num}" 
   }
 }
 
@@ -40,7 +39,6 @@ notes_attributes = (1..50).each do |num|
   note = Note.create(
     title: "Note#{num}",
     summary: "Summary" + "lorem ipsum doler "*(rand(5..20)),
-    public: [true, false].sample,
     user_id: User.select(:id).map{|u| u.id}.sample,
     language_id: Language.select(:id).map{|u| u.id}.sample
   )

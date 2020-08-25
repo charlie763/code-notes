@@ -37,9 +37,4 @@ RSpec.describe Topic, type: :model do
     expect(topic1).not_to be_valid
   end
   
-  it "can't be a subtopic to itself" do
-    topic1.update(topic_id: topic1.id)
-    expect(topic1).not_to be_valid
-  end
-
 end
