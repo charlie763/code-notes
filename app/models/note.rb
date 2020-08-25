@@ -14,7 +14,7 @@ class Note < ApplicationRecord
           end
         end
       else
-        note.topics << Topic.new()
+        note.topics << Topic.new() unless note.persisted?
       end
     end
   end
