@@ -27,7 +27,6 @@ RSpec.describe Topic, type: :model do
   it "saves if attributes are valid" do
     topic = Topic.new(name: "Rspec Topic2")
     topic.notes << note
-    topic.topic = topic1
     topic.save
     expect(topic).to be_valid
   end
