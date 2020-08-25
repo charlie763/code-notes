@@ -1,8 +1,8 @@
-var counter = 0;
+let counter = 0;
 
 function add_topic(){
   counter += 1;
-  var topic_field = document.createElement("input");
+  let topic_field = document.createElement("input");
   topic_field.setAttribute("list", "topic_list");
   topic_field.setAttribute("class", "form-control form-control-2 my-1");
   topic_field.type = "text";
