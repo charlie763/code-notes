@@ -26,7 +26,7 @@ class Note < ApplicationRecord
   belongs_to :user
   belongs_to :language
 
-  accepts_nested_attributes_for :language, reject_if: :all_blank
+  accepts_nested_attributes_for :language
   accepts_nested_attributes_for :topics, reject_if: :all_blank 
   accepts_nested_attributes_for :code_snippets, reject_if: :all_blank
   accepts_nested_attributes_for :external_resources, reject_if: proc{|attr_hash| attr_hash['name'].blank? || (attr_hash['url'].blank? && attr_hash['description'].blank?)}
@@ -43,8 +43,9 @@ class Note < ApplicationRecord
     results
   end
 
+  #this custom build method allows Language to be found by other attribute than id
   def build_language(attributes={})
-    language = Language.find_by(attributes)
+    language = attributes.present? ? Language.find_by(attributes) : nil
     self.language = language || Language.new(attributes)
   end
 
