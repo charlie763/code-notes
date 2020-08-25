@@ -25,7 +25,8 @@ RSpec.describe Topic, type: :model do
   let(:languages) {Language.possible_names}
 
   it "saves if attributes are valid" do
-    topic = note.topics.build(name: "Rspec Topic2")
+    topic = Topic.new(name: "Rspec Topic2")
+    topic.notes << note
     topic.topic = topic1
     topic.save
     expect(topic).to be_valid
