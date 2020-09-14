@@ -8,7 +8,7 @@ Code Notes is my Rails portfolio project for the Flatiron coding bootcamp. It is
 To install, clone the repository and run `bundle install`. The gemfile specifies dependencies. Database configuration is specified in the `config/database.yml` file and environmental variables are set in the `.env` file. To make the github omniauth work a Github KEY and SECRET need to be added as environmental variables.
 
 Here is an ERD of the models used in the application:
-![Entity Relationship Diagram](https://drive.google.com/uc?export=view&id=1hSrFDUvPk4mj7UBNQY5f4UI5dQ1cUJak)
+![Entity Relationship Diagram](https://i.postimg.cc/Z5xqYJ8y/ERD.png)
 
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/charlie763/code-notes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/charlie763/code-notes/blob/master/CODE_OF_CONDUCT.md).
