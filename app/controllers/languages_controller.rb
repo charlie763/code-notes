@@ -9,11 +9,4 @@ class LanguagesController < ApplicationController
     @topics = @language.topics.distinct
     @external_resources = @language.external_resources.distinct
   end
-
-  def edit
-  end
-
-  def update
-
-  end
 end
