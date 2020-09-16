@@ -42,9 +42,7 @@ class Note < ApplicationRecord
     if terms[:keyword].present?
       results = results.where('title LIKE ?', "%#{terms[:keyword]}%").or(results.where('summary LIKE ?', "%#{terms[:keyword]}%"))
     end
-    if terms[:language].present?
-      results = results.joins(:language).where('languages.name LIKE ?', "%#{terms[:language]}%")
-    end
+    results = results.joins(:language).where('languages.name LIKE ?', "%#{terms[:language]}%") if terms[:language].present?
     results = results.joins(:topics).where('topics.name LIKE ?', "%#{terms[:topic]}%") if terms[:topic].present?
     results = results.joins(:user).where(user: current_user) if terms[:user] == 'me'
     results = results.joins(:user).where.not(user: current_user) if terms[:user] == 'others'

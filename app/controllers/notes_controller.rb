@@ -33,11 +33,11 @@ class NotesController < ApplicationController
       @keyword = display_search_placeholder(:keyword)
     end
 
-    @notes = if terms = params[:terms]
-               Note.search(terms, current_user)
-             else
-               []
-             end
+    if terms = params[:terms]
+      @notes = Note.search(terms, current_user)
+    else 
+      @notes = []
+    end
   end
 
   def edit
