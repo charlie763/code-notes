@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Sign Up', type: :feature do
   it 'signs up a valid user' do
     user_signup(
-      username: "Charlie_rspec",
-      email: "test@test.com",
-      password: "test"
+      username: 'Charlie_rspec',
+      email: 'test@test.com',
+      password: 'test'
     )
-    expect(User.last.username).to eq("Charlie_rspec")
+    expect(User.last.username).to eq('Charlie_rspec')
   end
 
   it 'logs in the user if the user is valid' do
     user_signup(
-      username: "Charlie_rspec",
-      email: "test@test.com",
-      password: "test"
+      username: 'Charlie_rspec',
+      email: 'test@test.com',
+      password: 'test'
     )
     expect(page.get_rack_session_key('user_id')).to_not be_nil
   end
@@ -22,10 +24,9 @@ RSpec.describe 'Sign Up', type: :feature do
   it 'renders the signup page again if user is invalid' do
     user_signup(
       username: nil,
-      email: "test@test.com",
-      password: "test"
+      email: 'test@test.com',
+      password: 'test'
     )
     expect(page).to have_content('Sign Up')
   end
-
 end

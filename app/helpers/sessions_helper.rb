@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Logic that is used in the sessions controller and through the app
 module SessionsHelper
   def login_user(user_id)
     session[:user_id] = user_id

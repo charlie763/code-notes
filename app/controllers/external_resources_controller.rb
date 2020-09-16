@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Controller for the ExternalResource Model. Only has new and create actions as viewing
+# external resources only takes place via the Note and Language controllers
 class ExternalResourcesController < ApplicationController
   def new
     @external_resource = ExternalResource.new
@@ -16,7 +20,8 @@ class ExternalResourcesController < ApplicationController
     end
   end
 
-  private 
+  private
+
   def external_resource_params
     params.require(:external_resource).permit(:name, :description, :url)
   end

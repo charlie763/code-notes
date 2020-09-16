@@ -1,33 +1,35 @@
+# frozen_string_literal: true
+
+# Controller handles the login workflow
 class SessionsController < ApplicationController
   include SessionsHelper
-  layout "sessions"
+  layout 'sessions'
   before_action :redirect_if_logged_in
-  skip_before_action :redirect_if_logged_in, except: [:new, :create]
+  skip_before_action :redirect_if_logged_in, except: %i[new create]
   skip_before_action :redirect_if_not_logged_in, except: [:destroy]
 
-  def new
-  end
+  def new; end
 
   def create
     if auth_hash
       case auth_hash.provider
-        when 'github'
-          unless @user = User.find_by(github_email: auth_hash.info.email)
-            username = User.username_if_not_taken(auth_hash.info.nickname)
-            @user = User.create(
-              username: username, 
-              github_email: auth_hash.info.email,
-              password: SecureRandom.hex 
-            )
-          end
+      when 'github'
+        unless @user = User.find_by(github_email: auth_hash.info.email)
+          username = User.username_if_not_taken(auth_hash.info.nickname)
+          @user = User.create(
+            username: username,
+            github_email: auth_hash.info.email,
+            password: SecureRandom.hex
+          )
+        end
       end
       login_and_redirect(@user)
     else
       @user = User.find_by(username: params[:username])
-      if @user && @user.authenticate(params[:password])
+      if @user&.authenticate(params[:password])
         login_and_redirect(@user)
       else
-        flash[:alert] = "Password and/or username are incorrect."
+        flash[:alert] = 'Password and/or username are incorrect.'
         render 'new'
       end
     end
@@ -39,6 +41,7 @@ class SessionsController < ApplicationController
   end
 
   private
+
   def auth_hash
     request.env['omniauth.auth']
   end

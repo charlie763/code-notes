@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration that was later removed because intended functionality not used.
 class CreateResourceSubsections < ActiveRecord::Migration[6.0]
   def change
     create_table :resource_subsections do |t|

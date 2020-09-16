@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Notes Controller. This controls the main interaction the user has with the app including
+# searching for, viewing, creating and editing notes.
 class NotesController < ApplicationController
   include NotesHelper
 
@@ -29,11 +33,11 @@ class NotesController < ApplicationController
       @keyword = display_search_placeholder(:keyword)
     end
 
-    if terms = params[:terms]
-      @notes = Note.search(terms, current_user)
-    else 
-      @notes = []
-    end
+    @notes = if terms = params[:terms]
+               Note.search(terms, current_user)
+             else
+               []
+             end
   end
 
   def edit
@@ -43,9 +47,7 @@ class NotesController < ApplicationController
 
   def update
     @note = find_note_by_id
-    unless @note.user == current_user
-      redirect_to note_path(@note) and return
-    end
+    redirect_to note_path(@note) and return unless @note.user == current_user
 
     if @note.update(basic_note_params)
       redirect_to note_path(@note)
@@ -57,9 +59,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note = find_note_by_id
-    unless @note.user == current_user
-      redirect_to note_path(@note) and return
-    end
+    redirect_to note_path(@note) and return unless @note.user == current_user
 
     @note.code_snippets.destroy_all
     @note.destroy
@@ -67,14 +67,14 @@ class NotesController < ApplicationController
   end
 
   private
+
   def basic_note_params
-    params.require(:note).permit(:id, 
-      :title, 
-      :summary,
-      language_attributes: [:name], 
-      topics_attributes: [:name],
-      code_snippets_attributes: [:id, :code, :annotation],
-      external_resources_attributes: [:id, :name, :url, :description, :user_id]
-    )
+    params.require(:note).permit(:id,
+                                 :title,
+                                 :summary,
+                                 language_attributes: [:name],
+                                 topics_attributes: [:name],
+                                 code_snippets_attributes: %i[id code annotation],
+                                 external_resources_attributes: %i[id name url description user_id])
   end
 end

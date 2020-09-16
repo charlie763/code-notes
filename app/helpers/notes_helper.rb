@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Module for helper functions, logic that is used multiple time throughout the Notes controller.
 module NotesHelper
   def build_note_form
     @note.build_language unless @note.language
@@ -13,7 +16,7 @@ module NotesHelper
   end
 
   def display_search_placeholder(attribute)
-    ": #{params[:terms][attribute]}" if params[:terms][attribute].present? 
+    ": #{params[:terms][attribute]}" if params[:terms][attribute].present?
   end
 
   def validate_language
